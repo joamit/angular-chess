@@ -1,0 +1,14 @@
+.fill-space {
+    flex: 1 1 auto;
+}
+
+[md-fab] {
+    position: absolute;
+    right: 3%;
+    top: 34px;
+    z-index: 1;
+}
+
+.score {
+    margin-right: 100px;
+}

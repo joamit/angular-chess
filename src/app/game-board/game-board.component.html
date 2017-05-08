@@ -1,0 +1,10 @@
+<div class="row" *ngFor="let column of gameBoard; let y=index">
+    <div class="column"
+         *ngFor="let row of column; let x=index; trackBy:x"
+         [style.background-color]="getStyling(y, x)">
+        <!--Chess Piece here-->
+        <button md-button>
+            <md-icon svgIcon="play"></md-icon>
+        </button>
+    </div>
+</div>

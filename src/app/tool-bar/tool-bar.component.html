@@ -1,0 +1,10 @@
+<md-toolbar color="accent">
+    <h4>AngularChess</h4>
+    <span class="fill-space"></span>
+    <button *ngIf="!isStarted()" md-fab (click)="toggle()">
+        <md-icon svgIcon="play"></md-icon>
+    </button>
+    <button *ngIf="isStarted()" md-fab (click)="toggle()" color="warn">
+        <md-icon svgIcon="stop"></md-icon>
+    </button>
+</md-toolbar>
