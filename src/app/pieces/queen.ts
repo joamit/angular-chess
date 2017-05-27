@@ -13,6 +13,7 @@ export class Queen extends Piece {
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
     super(piecePosition, pieceAlliance);
+    this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackQueen : PieceType.WhiteQueen;
   }
 
   calculateLegalMoves(board: Board) {
@@ -60,7 +61,4 @@ export class Queen extends Piece {
       candidateOffset == 9);
   }
 
-  getPieceType() {
-    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackQueen : PieceType.WhiteQueen;
-  }
 }

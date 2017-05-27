@@ -30,5 +30,7 @@ export abstract class Piece {
     return this.piecePosition;
   }
 
-  abstract getPieceType();
+  getPieceType() {
+    return this.pieceType;
+  };
 }

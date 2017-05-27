@@ -12,6 +12,7 @@ export class Rook extends Piece {
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
     super(piecePosition, pieceAlliance);
+    this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackRook : PieceType.WhiteRook;
   }
 
   calculateLegalMoves(board: Board) {
@@ -58,7 +59,4 @@ export class Rook extends Piece {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateOffset == 1);
   }
 
-  getPieceType() {
-    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackRook : PieceType.WhiteRook;
-  }
 }

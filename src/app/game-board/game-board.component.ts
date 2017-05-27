@@ -16,6 +16,7 @@ export class GameBoardComponent implements OnInit {
   constructor(private gameService: GameService) {
     this.board = this.gameService.board;
     this.rows = this.gameService.rows;
+    console.log(this.rows[0][0]);
   }
 
   ngOnInit() {

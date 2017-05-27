@@ -13,6 +13,7 @@ export class Knight extends Piece {
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
     super(piecePosition, pieceAlliance);
+    this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKnight : PieceType.WhiteKnight;
   }
 
   public calculateLegalMoves(board: Board) {
@@ -69,7 +70,4 @@ export class Knight extends Piece {
       (candidateCoordinateOffset == 17));
   }
 
-  getPieceType() {
-    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKnight : PieceType.WhiteKnight;
-  }
 }

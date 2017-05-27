@@ -11,6 +11,7 @@ export class Pawn extends Piece {
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
     super(piecePosition, pieceAlliance);
+    this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackPawn : PieceType.WhitePawn;
   }
 
   calculateLegalMoves(board: Board) {
@@ -56,10 +57,6 @@ export class Pawn extends Piece {
       }
     });
     return Object.freeze(legalMoves);
-  }
-
-  getPieceType() {
-    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackPawn : PieceType.WhitePawn;
   }
 
 }

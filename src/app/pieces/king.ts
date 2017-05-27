@@ -11,6 +11,7 @@ export class King extends Piece {
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
     super(piecePosition, pieceAlliance);
+    this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKing : PieceType.WhiteKing;
   }
 
   calculateLegalMoves(board: Board) {
@@ -45,9 +46,5 @@ export class King extends Piece {
   private static isEighthColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateCoordinateOffset == 9 ||
       candidateCoordinateOffset == 1 || candidateCoordinateOffset == -7);
-  }
-
-  getPieceType() {
-    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKing : PieceType.WhiteKing;
   }
 }
