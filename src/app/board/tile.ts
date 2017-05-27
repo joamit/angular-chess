@@ -31,7 +31,7 @@ export abstract class Tile {
     }
   }
 
-  abstract isTileOccupied();
+  abstract isOccupied();
 
   abstract  getPiece();
 }

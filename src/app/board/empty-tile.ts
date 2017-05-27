@@ -5,7 +5,7 @@ export class EmptyTile extends Tile {
     super(tileCoordinate);
   }
 
-  isTileOccupied() {
+  isOccupied() {
     return false;
   }
 

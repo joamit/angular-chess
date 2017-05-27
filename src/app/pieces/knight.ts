@@ -29,7 +29,7 @@ export class Knight extends Piece {
 
         let candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
 
-        if (candidateTile.isTileOccupied()) {
+        if (candidateTile.isOccupied()) {
           const pieceAtDestination: Piece = candidateTile.getPiece();
           const pieceAllianceAtDestination: Alliance = pieceAtDestination.getAlliance();
 

@@ -9,7 +9,7 @@ export class OccupiedTile extends Tile {
     this.pieceOnTile = pieceOnTile;
   }
 
-  isTileOccupied() {
+  isOccupied() {
     return true;
   }
 
