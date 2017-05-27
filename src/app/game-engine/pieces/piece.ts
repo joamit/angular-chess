@@ -1,4 +1,4 @@
-import {Alliance} from "../alliance.enum";
+import {Alliance} from "../../alliance.enum";
 import {Board} from "../board/board";
 import {PieceType} from "./piece-type.enum";
 export abstract class Piece {

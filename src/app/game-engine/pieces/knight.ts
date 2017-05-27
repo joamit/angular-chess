@@ -1,6 +1,6 @@
 import {Piece} from "./piece";
 import {Board} from "../board/board";
-import {Alliance} from "../alliance.enum";
+import {Alliance} from "../../alliance.enum";
 import {Tile} from "../board/tile";
 import {Move} from "../board/move/move";
 import {BoardUtils} from "../board/board-utils";

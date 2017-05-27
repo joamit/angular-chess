@@ -6,7 +6,6 @@ export abstract class Move {
   movedPiece: Piece;
   destinationCoordinate: number;
 
-
   constructor(board: Board, movedPiece: Piece, destinationCoordinate: number) {
     this.board = board;
     this.movedPiece = movedPiece;

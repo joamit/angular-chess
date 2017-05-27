@@ -1,4 +1,3 @@
-import {Alliance} from "../alliance.enum";
 import {BoardConfig} from "./board-config";
 import {Piece} from "../pieces/piece";
 import {Tile} from "./tile";
@@ -10,6 +9,9 @@ import {Queen} from "../pieces/queen";
 import {King} from "../pieces/king";
 import {Pawn} from "../pieces/pawn";
 import {Move} from "./move/move";
+import {Alliance} from "../../alliance.enum";
+import {WhitePlayer} from "../player/white-player";
+import {BlackPlayer} from "../player/black-player";
 export class Board {
 
   boardConfig: BoardConfig[];
@@ -17,6 +19,8 @@ export class Board {
   gameBoard: Tile[];
   whitePieces: Piece[];
   blackPieces: Piece[];
+  whitePlayer: WhitePlayer;
+  blackPlayer: BlackPlayer;
 
 
   private createGameBoard(boardConfig: BoardConfig[]) {
@@ -82,7 +86,10 @@ export class Board {
     this.blackPieces = this.calculateActivePieces(this.gameBoard, Alliance.BLACK);
 
     const whiteStandardLegalMoves: Move[] = this.calculateLegalMoves(this.whitePieces);
-    const blackStandartLegalMoves: Move[] = this.calculateLegalMoves(this.blackPieces);
+    const blackStandardLegalMoves: Move[] = this.calculateLegalMoves(this.blackPieces);
+
+    this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
+    this.blackPlayer = new BlackPlayer(this, blackStandardLegalMoves, whiteStandardLegalMoves);
 
   }
 

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Board} from "../board/board";
+import {Board} from "../game-engine/board/board";
 
 @Injectable()
 export class GameService {

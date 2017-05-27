@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {GameService} from "../game-service/game.service";
 import {COLORS} from "../app.constants";
-import {Board} from "../board/board";
+import {Board} from "../game-engine/board/board";
 
 @Component({
   selector: 'app-game-board',
