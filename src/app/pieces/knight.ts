@@ -19,7 +19,7 @@ export class Knight extends Piece {
 
       candidateDestinationCoordinate = this.piecePosition + candidateCoordinate;
 
-      if (this.isValidTileCoordinate(candidateDestinationCoordinate)) {
+      if (Piece.isValidTileCoordinate(candidateDestinationCoordinate)) {
         let candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
 
         if (candidateTile.isTileOccupied()) {
@@ -38,8 +38,5 @@ export class Knight extends Piece {
     return Object.freeze(legalMoves);
   }
 
-  private isValidTileCoordinate(tileCoordinate: number) {
-    return tileCoordinate >= 0 && tileCoordinate < 64;
-  }
 
 }
