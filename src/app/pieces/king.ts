@@ -18,7 +18,8 @@ export class King extends Piece {
     this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinateOffset) => {
 
       const candidateDestinationCoordinate = this.piecePosition + candidateCoordinateOffset;
-      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate) && !(King.isFirstColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
+        King.isEighthColumnExclusion(this.piecePosition, candidateCoordinateOffset))) {
         if (board.getTile(candidateDestinationCoordinate).isOccupied()) {
           const destinationPiece: Piece = board.getTile(candidateDestinationCoordinate).getPiece();
           const destinationAlliance: Alliance = destinationPiece.getAlliance();
@@ -33,5 +34,15 @@ export class King extends Piece {
       }
     });
     return legalMoves;
+  }
+
+  private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.FIRST_COLUMN[piecePosition] && (candidateCoordinateOffset == -9 ||
+      candidateCoordinateOffset == -1 || candidateCoordinateOffset == 7);
+  }
+
+  private static isEighthColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateCoordinateOffset == 9 ||
+      candidateCoordinateOffset == 1 || candidateCoordinateOffset == -7);
   }
 }
