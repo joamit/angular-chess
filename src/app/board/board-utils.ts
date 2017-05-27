@@ -1,5 +1,9 @@
 export class BoardUtils {
 
+  private constructor() {
+    //can not use this constructor
+  }
+
   public static NUM_TILES: number = 64;
   public static NUM_TILES_PER_ROW: number = 8;
 
@@ -16,15 +20,19 @@ export class BoardUtils {
   static SEVENTH_COLUMN: boolean[] = BoardUtils.initColumn(6);
   static EIGHTH_COLUMN: boolean[] = BoardUtils.initColumn(7);
 
-  //TODO: row initialization
-  static SECOND_ROW: boolean[] = null;
-  static SEVENTH_ROW: boolean[] = null;
-
-  private constructor() {
-    //can not use this constructor
-  }
-
   static isValidTileCoordinate(tileCoordinate: number) {
     return tileCoordinate >= 0 && tileCoordinate < BoardUtils.NUM_TILES;
   }
+
+  private static initRow(number: number) {
+    const rows: boolean[] = Array(BoardUtils.NUM_TILES);
+    do {
+      rows[number] = true;
+      number++;
+    } while (number % BoardUtils.NUM_TILES_PER_ROW != 0);
+    return rows;
+  }
+
+  static SECOND_ROW: boolean[] = BoardUtils.initRow(8);
+  static SEVENTH_ROW: boolean[] = BoardUtils.initRow(48);
 }
