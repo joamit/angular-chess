@@ -10,9 +10,7 @@ export abstract class Tile {
 
   protected tileCoordinate: number;
 
-  private EMPTY_TILES_CACHE = this.createEmptyTiles();
-
-  private createEmptyTiles() {
+  private static createEmptyTiles() {
     const emptyTiles = [];
     for (let i = 0; i < BoardUtils.NUM_TILES; i++) {
       emptyTiles.push({
@@ -23,7 +21,9 @@ export abstract class Tile {
     return Object.freeze(emptyTiles);
   }
 
-  public createTile(tileCoordinate: number, pieceOnTile: Piece) {
+  private static EMPTY_TILES_CACHE = Tile.createEmptyTiles();
+
+  static createTile(tileCoordinate: number, pieceOnTile: Piece) {
     if (pieceOnTile == null) {
       return this.EMPTY_TILES_CACHE.find(tile => tile.coordinate == tileCoordinate).tile;
     } else {

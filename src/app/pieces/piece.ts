@@ -14,13 +14,17 @@ export abstract class Piece {
     this.firstMove = false;
   }
 
-  public abstract calculateLegalMoves(board: Board);
+  abstract calculateLegalMoves(board: Board);
 
-  public getAlliance() {
+  getAlliance() {
     return this.pieceAlliance;
   }
 
-  public isFirstMove() {
+  isFirstMove() {
     return this.firstMove;
+  }
+
+  getPosition() {
+    return this.piecePosition;
   }
 }
