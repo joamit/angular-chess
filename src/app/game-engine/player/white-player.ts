@@ -1,5 +1,5 @@
 import {Player} from "./player";
-import {Move} from "../board/move/move";
+import {Move} from "../move/move";
 import {Board} from "../board/board";
 import {Alliance} from "../../alliance.enum";
 export class WhitePlayer extends Player {

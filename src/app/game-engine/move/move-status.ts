@@ -1,4 +1,5 @@
 export enum MoveStatus {
-
-  Success, Failure
+  Leaves_Player_In_Check,
+  Illegal_Move,
+  Done
 }

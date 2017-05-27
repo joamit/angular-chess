@@ -8,10 +8,11 @@ import {Knight} from "../pieces/knight";
 import {Queen} from "../pieces/queen";
 import {King} from "../pieces/king";
 import {Pawn} from "../pieces/pawn";
-import {Move} from "./move/move";
+import {Move} from "../move/move";
 import {Alliance} from "../../alliance.enum";
 import {WhitePlayer} from "../player/white-player";
 import {BlackPlayer} from "../player/black-player";
+import {Player} from "../player/player";
 export class Board {
 
   boardConfig: BoardConfig[];
@@ -21,6 +22,7 @@ export class Board {
   blackPieces: Piece[];
   whitePlayer: WhitePlayer;
   blackPlayer: BlackPlayer;
+  currentPlayer: Player;
 
 
   private createGameBoard(boardConfig: BoardConfig[]) {
@@ -91,6 +93,7 @@ export class Board {
     this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
     this.blackPlayer = new BlackPlayer(this, blackStandardLegalMoves, whiteStandardLegalMoves);
 
+    this.currentPlayer = null;
   }
 
   private calculateLegalMoves(whitePieces: Piece[]) {

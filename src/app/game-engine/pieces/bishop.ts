@@ -1,11 +1,11 @@
 import {Piece} from "./piece";
 import {Board} from "../board/board";
 import {Alliance} from "../../alliance.enum";
-import {Move} from "../board/move/move";
+import {Move} from "../move/move";
 import {BoardUtils} from "../board/board-utils";
 import {Tile} from "../board/tile";
-import {AttackMove} from "../board/move/attack-move";
-import {NormalMove} from "../board/move/normal-move";
+import {AttackMove} from "../move/attack-move";
+import {NormalMove} from "../move/normal-move";
 import {PieceType} from "./piece-type.enum";
 export class Bishop extends Piece {
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -7, 7, 9];

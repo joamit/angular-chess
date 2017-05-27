@@ -1,5 +1,5 @@
-import {Board} from "../board";
-import {Piece} from "../../pieces/piece";
+import {Board} from "../board/board";
+import {Piece} from "../pieces/piece";
 export abstract class Move {
 
   board: Board;
@@ -11,4 +11,6 @@ export abstract class Move {
     this.movedPiece = movedPiece;
     this.destinationCoordinate = destinationCoordinate;
   }
+
+  abstract execute();
 }
