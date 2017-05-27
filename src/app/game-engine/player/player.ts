@@ -24,13 +24,14 @@ export abstract class Player {
   }
 
   private establishKing() {
+    let kingPiece: any = null;
     this.getActivePieces().forEach((piece: Piece) => {
       if (piece.getPieceType() === PieceType.BlackKing ||
         piece.getPieceType() === PieceType.WhiteKing) {
-        return piece;
+        kingPiece = piece;
       }
     });
-    return null;
+    return kingPiece;
   }
 
   /**
