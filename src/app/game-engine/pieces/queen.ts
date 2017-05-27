@@ -51,6 +51,10 @@ export class Queen extends Piece {
     return Object.freeze(legalMoves);
   }
 
+  movePiece(move: Move) {
+    return new Queen(move.destinationCoordinate, move.movedPiece.getAlliance());
+  }
+
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {
     return BoardUtils.FIRST_COLUMN[piecePosition] && (candidateOffset == -1 || candidateOffset == 7 ||
       candidateOffset == -9);

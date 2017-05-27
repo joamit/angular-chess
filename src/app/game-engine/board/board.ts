@@ -80,8 +80,11 @@ export class Board {
 
   constructor() {
     this.boardConfig = [];
-    this.createStandardBoard();
     this.nextMoveMaker = Alliance.WHITE;
+    this.createStandardBoard();
+  }
+
+  initializeBoard() {
     this.gameBoard = this.createGameBoard(this.boardConfig);
 
     this.whitePieces = this.calculateActivePieces(this.gameBoard, Alliance.WHITE);

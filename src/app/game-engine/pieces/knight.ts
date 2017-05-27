@@ -47,6 +47,10 @@ export class Knight extends Piece {
     return Object.freeze(legalMoves);
   }
 
+  movePiece(move: Move) {
+    return new Knight(move.destinationCoordinate, move.movedPiece.getAlliance());
+  }
+
   private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
     return BoardUtils.FIRST_COLUMN[piecePosition] && ((candidateCoordinateOffset == -17) ||
       (candidateCoordinateOffset == -10) || (candidateCoordinateOffset == 6) ||

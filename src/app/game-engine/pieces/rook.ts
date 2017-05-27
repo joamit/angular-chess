@@ -8,6 +8,7 @@ import {Tile} from "../board/tile";
 import {AttackMove} from "../move/attack-move";
 import {PieceType} from "./piece-type.enum";
 export class Rook extends Piece {
+
   private CANDIDATE_MOVE_COORDINATES: number[] = [-8, -1, 1, 8];
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
@@ -49,6 +50,10 @@ export class Rook extends Piece {
 
     });
     return Object.freeze(legalMoves);
+  }
+
+  movePiece(move: Move) {
+    return new Rook(move.destinationCoordinate, move.movedPiece.getAlliance());
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {

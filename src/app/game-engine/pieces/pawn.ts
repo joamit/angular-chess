@@ -7,6 +7,7 @@ import {NormalMove} from "../move/normal-move";
 import {AttackMove} from "../move/attack-move";
 import {PieceType} from "./piece-type.enum";
 export class Pawn extends Piece {
+
   private CANDIDATE_MOVE_COORDINATES: number[] = [7, 8, 9, 16];
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
@@ -59,4 +60,7 @@ export class Pawn extends Piece {
     return Object.freeze(legalMoves);
   }
 
+  movePiece(move: Move) {
+    return new Pawn(move.destinationCoordinate, move.movedPiece.getAlliance());
+  }
 }

@@ -7,6 +7,7 @@ import {AttackMove} from "../move/attack-move";
 import {NormalMove} from "../move/normal-move";
 import {PieceType} from "./piece-type.enum";
 export class King extends Piece {
+
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -8, -7, -1, 1, 7, 8, 9];
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
@@ -36,6 +37,10 @@ export class King extends Piece {
       }
     });
     return legalMoves;
+  }
+
+  movePiece(move: Move) {
+    return new King(move.destinationCoordinate, move.movedPiece.getAlliance());
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {

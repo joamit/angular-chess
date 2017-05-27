@@ -1,6 +1,7 @@
 import {Alliance} from "../../alliance.enum";
 import {Board} from "../board/board";
 import {PieceType} from "./piece-type.enum";
+import {Move} from "../move/move";
 export abstract class Piece {
 
   protected piecePosition: number;
@@ -17,6 +18,8 @@ export abstract class Piece {
   }
 
   abstract calculateLegalMoves(board: Board);
+
+  abstract movePiece(move: Move);
 
   getAlliance() {
     return this.pieceAlliance;

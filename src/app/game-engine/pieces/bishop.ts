@@ -8,6 +8,7 @@ import {AttackMove} from "../move/attack-move";
 import {NormalMove} from "../move/normal-move";
 import {PieceType} from "./piece-type.enum";
 export class Bishop extends Piece {
+
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -7, 7, 9];
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
@@ -48,6 +49,10 @@ export class Bishop extends Piece {
 
     });
     return Object.freeze(legalMoves);
+  }
+
+  movePiece(move: Move) {
+    return new Bishop(move.destinationCoordinate, move.movedPiece.getAlliance());
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {
