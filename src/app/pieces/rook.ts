@@ -45,7 +45,7 @@ export class Rook extends Piece {
       }
 
     });
-    return legalMoves;
+    return Object.freeze(legalMoves);
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {

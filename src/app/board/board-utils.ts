@@ -16,6 +16,10 @@ export class BoardUtils {
   static SEVENTH_COLUMN: boolean[] = BoardUtils.initColumn(6);
   static EIGHTH_COLUMN: boolean[] = BoardUtils.initColumn(7);
 
+  //TODO: row initialization
+  static SECOND_ROW: boolean[] = null;
+  static SEVENTH_ROW: boolean[] = null;
+
   private constructor() {
     //can not use this constructor
   }
