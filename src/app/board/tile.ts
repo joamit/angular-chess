@@ -1,6 +1,7 @@
 import {EmptyTile} from "./empty-tile";
 import {Piece} from "../pieces/piece";
 import {OccupiedTile} from "./occupied-tile";
+import {BoardUtils} from "./board-utils";
 export abstract class Tile {
 
   constructor(tileCoordinate: number) {
@@ -13,7 +14,7 @@ export abstract class Tile {
 
   private createEmptyTiles() {
     const emptyTiles = [];
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < BoardUtils.NUM_TILES; i++) {
       emptyTiles.push({
         coordinate: i,
         tile: new EmptyTile(i)
