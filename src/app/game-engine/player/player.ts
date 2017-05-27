@@ -28,5 +28,36 @@ export abstract class Player {
     return null;
   }
 
+  isMoveLegal(move: Move) {
+    return this.legalMoves.find((legalMove) => {
+        return legalMove === move;
+      }) !== null;
+  }
+
+  //TODO: concrete method implementations
+  isInCheck() {
+    return false;
+  }
+
+  isInCheckMate() {
+    return false;
+  }
+
+  isInStaleMate() {
+    return false;
+  }
+
+  isCastled() {
+    return false;
+  }
+
+  makeMove(move: Move) {
+    return null;
+  }
+
+  abstract getAlliance();
+
   abstract getActivePieces();
+
+  abstract getOpponent();
 }

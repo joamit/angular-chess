@@ -1,6 +1,7 @@
 import {Board} from "../board/board";
 import {Move} from "../board/move/move";
 import {Player} from "./player";
+import {Alliance} from "../../alliance.enum";
 export class BlackPlayer extends Player {
 
   constructor(board: Board, legalMoves: Move[], opponentMoves: Move[]) {
@@ -9,5 +10,13 @@ export class BlackPlayer extends Player {
 
   getActivePieces() {
     return this.board.blackPieces;
+  }
+
+  getAlliance() {
+    return Alliance.BLACK;
+  }
+
+  getOpponent() {
+    return this.board.whitePlayer;
   }
 }
