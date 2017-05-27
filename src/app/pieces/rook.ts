@@ -6,6 +6,7 @@ import {BoardUtils} from "../board/board-utils";
 import {NormalMove} from "../board/move/normal-move";
 import {Tile} from "../board/tile";
 import {AttackMove} from "../board/move/attack-move";
+import {PieceType} from "./piece-type.enum";
 export class Rook extends Piece {
   private CANDIDATE_MOVE_COORDINATES: number[] = [-8, -1, 1, 8];
 
@@ -27,6 +28,7 @@ export class Rook extends Piece {
         }
         candidateDestinationCoordinate += destinationCoordinateOffset;
         if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+          console.log(board);
           const candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
           if (candidateTile.isOccupied()) {
             const pieceAtDestination: Piece = candidateTile.getPiece();
@@ -54,5 +56,9 @@ export class Rook extends Piece {
 
   private static isEighthColumnExclusion(piecePosition: number, candidateOffset: number) {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateOffset == 1);
+  }
+
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackRook : PieceType.WhiteRook;
   }
 }

@@ -1,10 +1,12 @@
 import {Alliance} from "../alliance.enum";
 import {Board} from "../board/board";
+import {PieceType} from "./piece-type.enum";
 export abstract class Piece {
 
   protected piecePosition: number;
   protected pieceAlliance: Alliance;
   protected firstMove: boolean;
+  protected pieceType: PieceType;
 
 
   constructor(piecePosition: number, pieceAlliance: Alliance) {
@@ -27,4 +29,6 @@ export abstract class Piece {
   getPosition() {
     return this.piecePosition;
   }
+
+  abstract getPieceType();
 }

@@ -6,6 +6,7 @@ import {Move} from "../board/move/move";
 import {BoardUtils} from "../board/board-utils";
 import {AttackMove} from "../board/move/attack-move";
 import {NormalMove} from "../board/move/normal-move";
+import {PieceType} from "./piece-type.enum";
 export class Knight extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-17, -15, -10, -6, 6, 10, 15, 17];
@@ -66,5 +67,9 @@ export class Knight extends Piece {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && ((candidateCoordinateOffset == -6) ||
       (candidateCoordinateOffset == -15) || (candidateCoordinateOffset == 10) ||
       (candidateCoordinateOffset == 17));
+  }
+
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKnight : PieceType.WhiteKnight;
   }
 }

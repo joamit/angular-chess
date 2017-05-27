@@ -5,6 +5,7 @@ import {Move} from "../board/move/move";
 import {BoardUtils} from "../board/board-utils";
 import {AttackMove} from "../board/move/attack-move";
 import {NormalMove} from "../board/move/normal-move";
+import {PieceType} from "./piece-type.enum";
 export class King extends Piece {
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -8, -7, -1, 1, 7, 8, 9];
 
@@ -44,5 +45,9 @@ export class King extends Piece {
   private static isEighthColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateCoordinateOffset == 9 ||
       candidateCoordinateOffset == 1 || candidateCoordinateOffset == -7);
+  }
+
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKing : PieceType.WhiteKing;
   }
 }

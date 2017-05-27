@@ -1,7 +1,7 @@
-<div class="row" *ngFor="let column of gameBoard; let y=index">
-    <div class="column"
-         *ngFor="let row of column; let x=index; trackBy:x"
+<div class="row" *ngFor="let row of rows; let y=index">
+  <div class="column" *ngFor="let tile of row; let x=index; trackBy:x"
          [style.background-color]="getStyling(y, x)">
         <!--Chess Piece here-->
+    <p>{{tile.getPiece()}}</p>
     </div>
 </div>

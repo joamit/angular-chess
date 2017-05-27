@@ -6,6 +6,7 @@ import {BoardUtils} from "../board/board-utils";
 import {Tile} from "../board/tile";
 import {AttackMove} from "../board/move/attack-move";
 import {NormalMove} from "../board/move/normal-move";
+import {PieceType} from "./piece-type.enum";
 export class Bishop extends Piece {
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -7, 7, 9];
 
@@ -56,6 +57,10 @@ export class Bishop extends Piece {
   private static isEighthColumnExclusion(piecePosition: number, candidateOffset: number) {
     return BoardUtils.EIGHTH_COLUMN[piecePosition] && (candidateOffset == -7 ||
       candidateOffset == 9);
+  }
+
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackBishop : PieceType.WhiteBishop;
   }
 }
 

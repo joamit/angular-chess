@@ -11,7 +11,6 @@ import {FooterComponent} from "./footer/footer.component";
 import {GameBoardComponent} from "./game-board/game-board.component";
 import {GameService} from "./game-service/game.service";
 import {CHESS_PIECES} from "./app.constants";
-import {ChessPieceComponent} from "./chess-piece/chess-piece.component";
 
 @NgModule({
   declarations: [

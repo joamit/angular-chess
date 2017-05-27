@@ -5,6 +5,7 @@ import {Move} from "../board/move/move";
 import {BoardUtils} from "../board/board-utils";
 import {NormalMove} from "../board/move/normal-move";
 import {AttackMove} from "../board/move/attack-move";
+import {PieceType} from "./piece-type.enum";
 export class Pawn extends Piece {
   private CANDIDATE_MOVE_COORDINATES: number[] = [7, 8, 9, 16];
 
@@ -57,5 +58,8 @@ export class Pawn extends Piece {
     return Object.freeze(legalMoves);
   }
 
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackPawn : PieceType.WhitePawn;
+  }
 
 }

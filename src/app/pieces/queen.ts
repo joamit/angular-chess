@@ -6,6 +6,7 @@ import {NormalMove} from "../board/move/normal-move";
 import {AttackMove} from "../board/move/attack-move";
 import {Tile} from "../board/tile";
 import {Move} from "../board/move/move";
+import {PieceType} from "./piece-type.enum";
 export class Queen extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -8, -7, -1, 1, 7, -8, -9];
@@ -59,4 +60,7 @@ export class Queen extends Piece {
       candidateOffset == 9);
   }
 
+  getPieceType() {
+    return this.pieceAlliance === Alliance.BLACK ? PieceType.BlackQueen : PieceType.WhiteQueen;
+  }
 }

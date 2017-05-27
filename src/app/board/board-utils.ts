@@ -1,3 +1,6 @@
+import {OccupiedTile} from "./occupied-tile";
+import {Piece} from "../pieces/piece";
+import {EmptyTile} from "./empty-tile";
 export class BoardUtils {
 
   private constructor() {
@@ -35,4 +38,25 @@ export class BoardUtils {
 
   static SECOND_ROW: boolean[] = BoardUtils.initRow(8);
   static SEVENTH_ROW: boolean[] = BoardUtils.initRow(48);
+
+  static createEmptyTiles() {
+    const emptyTiles = [];
+    for (let i = 0; i < BoardUtils.NUM_TILES; i++) {
+      emptyTiles.push({
+        coordinate: i,
+        tile: new EmptyTile(i)
+      });
+    }
+    return Object.freeze(emptyTiles);
+  }
+
+  private static EMPTY_TILES_CACHE = BoardUtils.createEmptyTiles();
+
+  static createTile(tileCoordinate: number, pieceOnTile: Piece) {
+    if (pieceOnTile == null) {
+      return this.EMPTY_TILES_CACHE.find(tile => tile.coordinate == tileCoordinate).tile;
+    } else {
+      return new OccupiedTile(tileCoordinate, pieceOnTile);
+    }
+  }
 }

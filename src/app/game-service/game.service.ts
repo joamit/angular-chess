@@ -1,19 +1,16 @@
-import {Injectable} from '@angular/core';
-import {BOARD_SIZE} from "../app.constants";
+import {Injectable} from "@angular/core";
+import {Board} from "../board/board";
 
 @Injectable()
 export class GameService {
 
-    gameBoard: boolean[][];
+  board: Board;
+  rows: any[];
 
-    constructor() {
-        this.gameBoard = [];
-        for (let i = 0; i < BOARD_SIZE; i++) {
-            this.gameBoard[i] = [];
-            for (let j = 0; j < BOARD_SIZE; j++) {
-                this.gameBoard[i][j] = false;
-            }
-        }
-    }
+  constructor() {
+    this.board = new Board();
+    this.rows = this.board.gameBoard.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
+      : rows[rows.length - 1].push(key)) && rows, []);
+  }
 
 }

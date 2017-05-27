@@ -20,15 +20,15 @@ export class Board {
 
 
   private createGameBoard(boardConfig: BoardConfig[]) {
-    const tiles: Tile[] = Array(BoardUtils.NUM_TILES);
+    const tiles: Tile[] = [];
     for (let tileNumber = 0; tileNumber < BoardUtils.NUM_TILES; tileNumber++) {
       const config: BoardConfig = boardConfig.find((element) => {
         return element._position === tileNumber;
       });
       if (config && config._piece) {
-        tiles.push(Tile.createTile(tileNumber, config._piece));
+        tiles.push(BoardUtils.createTile(tileNumber, config._piece));
       } else {
-        tiles.push(Tile.createTile(tileNumber, null));
+        tiles.push(BoardUtils.createTile(tileNumber, null));
       }
     }
     return tiles;
