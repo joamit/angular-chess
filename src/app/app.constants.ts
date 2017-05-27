@@ -5,6 +5,9 @@
 export const BOARD_SIZE = 8;
 
 export const COLORS = {
-    WHITE: '#D8D3D0',
-    BLACK: '#B24503',
+  WHITE: '#D8D3D0',
+  BLACK: '#B24503',
 };
+
+export const CHESS_PIECES = ['BlackBishop', 'BlackKing', 'BlackKnight', 'BlackPawn', 'BlackQueen', 'BlackRook',
+  'WhileBishop', 'WhiteKing', 'WhiteKnight', 'WhitePawn', 'WhiteQueen', 'WhiteRook'];
