@@ -3,6 +3,7 @@ import {Board} from "../board/board";
 import {Alliance} from "../alliance.enum";
 import {Tile} from "../board/tile";
 import {Move} from "../board/move";
+import {BoardUtils} from "../board/board-utils";
 export class Knight extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-17, -15, -10, -6, 6, 10, 15, 17];
@@ -13,13 +14,17 @@ export class Knight extends Piece {
 
   public calculateLegalMoves(board: Board) {
     const legalMoves: Move[] = [];
-    let candidateDestinationCoordinate: number;
 
-    this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinate) => {
+    this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinateOffset) => {
 
-      candidateDestinationCoordinate = this.piecePosition + candidateCoordinate;
+      let candidateDestinationCoordinate: number = this.piecePosition + candidateCoordinateOffset;
 
-      if (Piece.isValidTileCoordinate(candidateDestinationCoordinate)) {
+      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)
+        && !(Knight.isFirstColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
+        Knight.isSecondColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
+        Knight.isSeventhColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
+        Knight.isEighthColumnExclusion(this.piecePosition, candidateCoordinateOffset))) {
+
         let candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
 
         if (candidateTile.isTileOccupied()) {
@@ -38,5 +43,26 @@ export class Knight extends Piece {
     return Object.freeze(legalMoves);
   }
 
+  private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.FIRST_COLUMN[piecePosition] && ((candidateCoordinateOffset == -17) ||
+      (candidateCoordinateOffset == -10) || (candidateCoordinateOffset == 6) ||
+      (candidateCoordinateOffset == 15));
+  }
 
+
+  private static isSecondColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.SECOND_COLUMN[piecePosition] && ((candidateCoordinateOffset == -10) ||
+      (candidateCoordinateOffset == 6));
+  }
+
+  private static isSeventhColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.SEVENTH_COLUMN[piecePosition] && ((candidateCoordinateOffset == -6) ||
+      (candidateCoordinateOffset == 10));
+  }
+
+  private static isEighthColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {
+    return BoardUtils.EIGHTH_COLUMN[piecePosition] && ((candidateCoordinateOffset == -6) ||
+      (candidateCoordinateOffset == -15) || (candidateCoordinateOffset == 10) ||
+      (candidateCoordinateOffset == 17));
+  }
 }
