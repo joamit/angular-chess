@@ -4,6 +4,8 @@ import {Alliance} from "../alliance.enum";
 import {Tile} from "../board/tile";
 import {Move} from "../board/move/move";
 import {BoardUtils} from "../board/board-utils";
+import {AttackMove} from "../board/move/attack-move";
+import {NormalMove} from "../board/move/normal-move";
 export class Knight extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-17, -15, -10, -6, 6, 10, 15, 17];
@@ -33,10 +35,10 @@ export class Knight extends Piece {
 
           if (this.pieceAlliance != pieceAllianceAtDestination) {
             //this would mean we have enemy at this position
-            legalMoves.push(new Move());
+            legalMoves.push(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
           }
         } else {
-          legalMoves.push(new Move());
+          legalMoves.push(new NormalMove(board, this, candidateDestinationCoordinate));
         }
       }
     });
