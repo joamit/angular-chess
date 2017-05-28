@@ -9,10 +9,8 @@ export class GameService {
 
   constructor() {
     this.board = new Board();
+    this.board.createStandardBoard();
     this.board.initializeBoard();
-    //get eight rows with eight columns in each row
-    this.rows = this.board.gameBoard.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
-      : rows[rows.length - 1].push(key)) && rows, []);
   }
 
   gameBoard(): Board {

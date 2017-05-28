@@ -10,8 +10,8 @@ export class King extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -8, -7, -1, 1, 7, 8, 9];
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
-    super(piecePosition, pieceAlliance);
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
+    super(piecePosition, pieceAlliance, firstMove);
     this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKing : PieceType.WhiteKing;
   }
 
@@ -40,7 +40,7 @@ export class King extends Piece {
   }
 
   movePiece(move: Move) {
-    return new King(move.destinationCoordinate, move.movedPiece.getAlliance());
+    return new King(move.destinationCoordinate, move.movedPiece.getAlliance(), false);
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {

@@ -75,7 +75,7 @@ export abstract class Player {
       //execute the move now
       const transitionBoard: Board = move.execute();
       //if we execute the move and see if current player's king ends up in check
-      const kingAttacks: Move[] = Player.calculateAttacksOnTile(transitionBoard.currentPlayer.getOpponent().getPlayerKing().getPiecePosition(),
+      const kingAttacks: Move[] = Player.calculateAttacksOnTile(transitionBoard.currentPlayer.getOpponent().getPlayerKing().getPosition(),
         transitionBoard.currentPlayer.legalMoves);
 
       //this means king is going to end up in check by opponent if this move is made
@@ -124,5 +124,13 @@ export abstract class Player {
       }
     });
     return false;
+  }
+
+  /**
+   * Fetch current player's king
+   * @returns {King} king
+   */
+  getPlayerKing(): King {
+    return this.playerKing;
   }
 }

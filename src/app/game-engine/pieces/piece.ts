@@ -10,11 +10,11 @@ export abstract class Piece {
   protected pieceType: PieceType;
 
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
     this.piecePosition = piecePosition;
     this.pieceAlliance = pieceAlliance;
     //TODO: logic for first move for certain pieces
-    this.firstMove = false;
+    this.firstMove = firstMove;
   }
 
   abstract calculateLegalMoves(board: Board);

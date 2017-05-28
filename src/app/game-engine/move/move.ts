@@ -20,8 +20,9 @@ export abstract class Move {
     const transitionBoard: Board = new Board();
     //copy all current player's active pieces as they are to new board, except the piece which is being moved
     this.board.currentPlayer.getActivePieces().forEach((activePiece) => {
-      //TODO: check equality logic, it might not work properly
-      if (this.movedPiece !== activePiece) {
+      if (this.movedPiece.getPosition() === activePiece.getPosition()) {
+        console.log('This piece will be moved. Hence not adding it to the board.', activePiece);
+      } else {
         transitionBoard.setPiece(activePiece);
       }
     });

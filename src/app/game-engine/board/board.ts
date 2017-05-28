@@ -52,47 +52,46 @@ export class Board {
    * This config will change subsequently when users start moving pieces.
    */
   createStandardBoard() {
-    this.boardConfig.push(new BoardConfig(0, new Rook(0, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(1, new Knight(1, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(2, new Bishop(2, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(3, new Queen(3, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(4, new King(4, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(5, new Bishop(5, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(6, new Knight(6, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(7, new Rook(7, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(8, new Pawn(8, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(9, new Pawn(9, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(10, new Pawn(10, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(11, new Pawn(11, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(12, new Pawn(12, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(13, new Pawn(13, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(14, new Pawn(14, Alliance.BLACK)));
-    this.boardConfig.push(new BoardConfig(15, new Pawn(15, Alliance.BLACK)));
+    this.boardConfig.push(new BoardConfig(0, new Rook(0, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(1, new Knight(1, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(2, new Bishop(2, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(3, new Queen(3, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(4, new King(4, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(5, new Bishop(5, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(6, new Knight(6, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(7, new Rook(7, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(8, new Pawn(8, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(9, new Pawn(9, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(10, new Pawn(10, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(11, new Pawn(11, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(12, new Pawn(12, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(13, new Pawn(13, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(14, new Pawn(14, Alliance.BLACK, true)));
+    this.boardConfig.push(new BoardConfig(15, new Pawn(15, Alliance.BLACK, true)));
 
 
-    this.boardConfig.push(new BoardConfig(48, new Pawn(48, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(49, new Pawn(49, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(50, new Pawn(50, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(51, new Pawn(51, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(52, new Pawn(52, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(53, new Pawn(53, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(54, new Pawn(54, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(55, new Pawn(55, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(56, new Rook(56, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(57, new Knight(57, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(58, new Bishop(58, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(59, new Queen(59, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(60, new King(60, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(61, new Bishop(61, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(62, new Knight(62, Alliance.WHITE)));
-    this.boardConfig.push(new BoardConfig(63, new Rook(63, Alliance.WHITE)));
+    this.boardConfig.push(new BoardConfig(48, new Pawn(48, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(49, new Pawn(49, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(50, new Pawn(50, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(51, new Pawn(51, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(52, new Pawn(52, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(53, new Pawn(53, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(54, new Pawn(54, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(55, new Pawn(55, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(56, new Rook(56, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(57, new Knight(57, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(58, new Bishop(58, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(59, new Queen(59, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(60, new King(60, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(61, new Bishop(61, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(62, new Knight(62, Alliance.WHITE, true)));
+    this.boardConfig.push(new BoardConfig(63, new Rook(63, Alliance.WHITE, true)));
 
   }
 
   constructor() {
     this.boardConfig = [];
     this.nextMoveMaker = Alliance.WHITE;
-    this.createStandardBoard();
   }
 
   /**
@@ -103,10 +102,13 @@ export class Board {
     this.gameBoard = this.createGameBoard(this.boardConfig);
 
     this.whitePieces = this.calculateActivePieces(this.gameBoard, Alliance.WHITE);
+    console.log('White Pieces', this.whitePieces);
     this.blackPieces = this.calculateActivePieces(this.gameBoard, Alliance.BLACK);
-
+    console.log('Black Pieces', this.blackPieces);
     const whiteStandardLegalMoves: Move[] = this.calculateLegalMoves(this.whitePieces);
+    console.log('calculated legal moves for white player', whiteStandardLegalMoves);
     const blackStandardLegalMoves: Move[] = this.calculateLegalMoves(this.blackPieces);
+    console.log('calculated legal moves for black player', blackStandardLegalMoves);
 
     this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
     this.blackPlayer = new BlackPlayer(this, blackStandardLegalMoves, whiteStandardLegalMoves);
@@ -122,7 +124,9 @@ export class Board {
   private calculateLegalMoves(pieces: Piece[]): Move[] {
     let legalMoves: Move[] = [];
     pieces.forEach((piece) => {
+      console.log('calculating legal moves for piece', piece);
       legalMoves = legalMoves.concat(piece.calculateLegalMoves(this));
+      console.log('legal moves so far ', legalMoves.length);
     });
     return legalMoves;
   }
@@ -164,6 +168,8 @@ export class Board {
    * @returns {Move[]} list of legal moves for both players
    */
   getAllLegalMoves(): Move[] {
+    console.log('white player legal moves ', this.whitePlayer.legalMoves);
+    console.log('black player legal moves ', this.blackPlayer.legalMoves);
     return this.whitePlayer.legalMoves.concat(this.blackPlayer.legalMoves);
   }
 

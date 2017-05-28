@@ -10,17 +10,23 @@ export class Pawn extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [7, 8, 9, 16];
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
-    super(piecePosition, pieceAlliance);
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
+    super(piecePosition, pieceAlliance, firstMove);
     this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackPawn : PieceType.WhitePawn;
   }
 
+  /**
+   * Calculate legal moves for a pawn.
+   * @param board current board layout
+   * @returns {Move[]} total legal moves
+   */
   calculateLegalMoves(board: Board) {
     const legalMoves: Move[] = [];
+    console.log('Calculating legal moves for Pawn');
 
     this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinateOffset) => {
 
-      const candidateDestinationCoordinate = this.piecePosition + (Alliance[this.pieceAlliance.toString()] * candidateCoordinateOffset);
+      const candidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance * candidateCoordinateOffset);
       if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
 
         if (candidateCoordinateOffset == 8 && !board.getTile(candidateDestinationCoordinate).isOccupied()) {
@@ -30,7 +36,7 @@ export class Pawn extends Piece {
           ((BoardUtils.SECOND_ROW[this.piecePosition] && this.pieceAlliance == Alliance.BLACK) ||
           BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceAlliance == Alliance.WHITE)) {
           //check if both front tiles are not occupied for the jump
-          const behindCandidateCoordinate = this.piecePosition + (Alliance[this.pieceAlliance.toString()] * 8);
+          const behindCandidateCoordinate = this.piecePosition + (this.pieceAlliance * 8);
           if (!board.getTile(behindCandidateCoordinate).isOccupied() && !board.getTile(candidateDestinationCoordinate).isOccupied()) {
             legalMoves.push(new NormalMove(board, this, candidateDestinationCoordinate));
           }
@@ -61,6 +67,6 @@ export class Pawn extends Piece {
   }
 
   movePiece(move: Move) {
-    return new Pawn(move.destinationCoordinate, move.movedPiece.getAlliance());
+    return new Pawn(move.destinationCoordinate, move.movedPiece.getAlliance(), false);
   }
 }

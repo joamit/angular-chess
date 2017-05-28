@@ -11,8 +11,8 @@ export class Knight extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-17, -15, -10, -6, 6, 10, 15, 17];
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
-    super(piecePosition, pieceAlliance);
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
+    super(piecePosition, pieceAlliance, firstMove);
     this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackKnight : PieceType.WhiteKnight;
   }
 
@@ -48,7 +48,7 @@ export class Knight extends Piece {
   }
 
   movePiece(move: Move) {
-    return new Knight(move.destinationCoordinate, move.movedPiece.getAlliance());
+    return new Knight(move.destinationCoordinate, move.movedPiece.getAlliance(), false);
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateCoordinateOffset: number) {

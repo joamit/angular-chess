@@ -11,8 +11,8 @@ export class Rook extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-8, -1, 1, 8];
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
-    super(piecePosition, pieceAlliance);
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
+    super(piecePosition, pieceAlliance, firstMove);
     this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackRook : PieceType.WhiteRook;
   }
 
@@ -30,7 +30,6 @@ export class Rook extends Piece {
         }
         candidateDestinationCoordinate += destinationCoordinateOffset;
         if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-          console.log(board);
           const candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
           if (candidateTile.isOccupied()) {
             const pieceAtDestination: Piece = candidateTile.getPiece();
@@ -53,7 +52,7 @@ export class Rook extends Piece {
   }
 
   movePiece(move: Move) {
-    return new Rook(move.destinationCoordinate, move.movedPiece.getAlliance());
+    return new Rook(move.destinationCoordinate, move.movedPiece.getAlliance(), false);
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {

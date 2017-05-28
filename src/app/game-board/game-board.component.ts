@@ -5,6 +5,12 @@ import {Board} from "../game-engine/board/board";
 import {Tile} from "../game-engine/board/tile";
 import {transition, style, state, trigger, animate} from "@angular/animations";
 import {MdSnackBar} from "@angular/material";
+import {Piece} from "../game-engine/pieces/piece";
+import {Move} from "../game-engine/move/move";
+import {MoveTransition} from "../game-engine/move/move-transition";
+import {MoveStatus} from "../game-engine/move/move-status";
+import {MoveFactory} from "../game-engine/move/move-factory";
+import {NullMove} from "../game-engine/move/null-move";
 
 @Component({
   selector: 'app-game-board',
@@ -29,11 +35,19 @@ export class GameBoardComponent implements OnInit {
   board: Board;
   rows: any[];
   snackBar: MdSnackBar;
+  sourceTile: Tile;
+  destinationTile: Tile;
+  humanMovedPiece: Piece;
 
   constructor(private gameService: GameService, snackBar: MdSnackBar) {
-    this.board = this.gameService.board;
-    this.rows = this.gameService.rows;
+    this.board = this.gameService.board; //get eight rows with eight columns in each row
+    this.createRows();
     this.snackBar = snackBar;
+  }
+
+  private createRows() {
+    this.rows = this.board.gameBoard.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
+      : rows[rows.length - 1].push(key)) && rows, []);
   }
 
   ngOnInit() {
@@ -55,16 +69,58 @@ export class GameBoardComponent implements OnInit {
         }
       });
     });
-    if (clickedTile.isOccupied()) {
-      if (clickedTile.getPiece().getAlliance() === this.board.currentPlayer.getAlliance()) {
-        clickedTile.state = clickedTile.state === 'active' ? 'inactive' : 'active';
+
+    if (clickedTile.getPiece() && clickedTile.getPiece().getAlliance() === this.board.currentPlayer.getAlliance()) {
+      clickedTile.state = clickedTile.state === 'active' ? 'inactive' : 'active';
+
+      if (this.sourceTile) {
+        this.destinationTile = clickedTile;
+        this.moveThePiece();
+
+        //reset source and destination tile now
+        this.sourceTile = null;
+        this.destinationTile = null;
+        this.humanMovedPiece = null;
+
       } else {
-        const currentAlliance = this.board.currentPlayer.getAlliance() === -1 ? 'White' : 'Black';
-        this.snackBar.open(`${currentAlliance} Moves`, '', {
-          duration: 1000,
-        });
+        this.sourceTile = clickedTile;
+        this.humanMovedPiece = clickedTile.getPiece();
+      }
+    } else {
+      this.destinationTile = clickedTile;
+      this.moveThePiece();
+
+      //reset source and destination tile now
+      this.sourceTile = null;
+      this.destinationTile = null;
+      this.humanMovedPiece = null;
+    }
+
+  }
+
+  private moveThePiece() {
+    console.log('Creating a move');
+    const moveToMake: Move = MoveFactory.createMove(this.board, this.sourceTile.tileCoordinate, this.destinationTile.tileCoordinate);
+    console.log('Move created', moveToMake);
+    if (moveToMake instanceof NullMove) {
+      this.openSnackBar('Illegal move. Could not find any suitable moves for this piece', '');
+    } else {
+      console.log('Making move now');
+      const moveTransition: MoveTransition = this.board.currentPlayer.makeMove(moveToMake);
+      console.log('Move Transition', moveTransition);
+      if (moveTransition.moveStatus === MoveStatus.Done) {
+        this.board = moveTransition.transitionBoard;
+        this.createRows()
+      } else {
+        this.openSnackBar('This move can not be executed!!', `${moveTransition.moveStatus}`)
       }
     }
+  }
+
+  private openSnackBar(description: string, action: string) {
+    this.snackBar.open(description, action, {
+      duration: 1000,
+    });
   }
 
 }

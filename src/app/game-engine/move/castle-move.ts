@@ -36,7 +36,7 @@ export abstract class CastleMove extends Move {
     });
 
     transitionBoard.setPiece(this.movedPiece.movePiece(this));
-    transitionBoard.setPiece(new Rook(this.castleRook.getPosition(), this.castleRook.getAlliance()));
+    transitionBoard.setPiece(new Rook(this.castleRook.getPosition(), this.castleRook.getAlliance(), false));
 
     transitionBoard.setNextMoveMaker(this.board.currentPlayer.getOpponent().getAlliance());
     transitionBoard.initializeBoard();

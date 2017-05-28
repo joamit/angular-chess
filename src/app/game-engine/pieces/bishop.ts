@@ -11,8 +11,8 @@ export class Bishop extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -7, 7, 9];
 
-  constructor(piecePosition: number, pieceAlliance: Alliance) {
-    super(piecePosition, pieceAlliance);
+  constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
+    super(piecePosition, pieceAlliance, firstMove);
     this.pieceType = this.pieceAlliance === Alliance.BLACK ? PieceType.BlackBishop : PieceType.WhiteBishop;
   }
 
@@ -52,7 +52,7 @@ export class Bishop extends Piece {
   }
 
   movePiece(move: Move) {
-    return new Bishop(move.destinationCoordinate, move.movedPiece.getAlliance());
+    return new Bishop(move.destinationCoordinate, move.movedPiece.getAlliance(), false);
   }
 
   private static isFirstColumnExclusion(piecePosition: number, candidateOffset: number) {

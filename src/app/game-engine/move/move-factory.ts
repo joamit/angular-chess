@@ -12,6 +12,7 @@ export class MoveFactory {
    */
   static createMove(board: Board, currentCoordinate: number, destinationCoordinate: number): Move {
     let legalMove: Move = new NullMove();
+    console.log('In move Factory. Legal Moves: ', board.getAllLegalMoves());
     board.getAllLegalMoves().forEach((move: Move) => {
       if (move.destinationCoordinate === destinationCoordinate &&
         move.movedPiece.getPosition() === currentCoordinate) {
