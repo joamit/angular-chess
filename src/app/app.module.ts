@@ -5,7 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MdToolbarModule, MdButtonModule, MdIconModule, MdIconRegistry} from "@angular/material";
+import {MdToolbarModule, MdButtonModule, MdIconModule, MdIconRegistry, MdSnackBarModule} from "@angular/material";
 import {ToolBarComponent} from "./tool-bar/tool-bar.component";
 import {FooterComponent} from "./footer/footer.component";
 import {GameBoardComponent} from "./game-board/game-board.component";
@@ -25,7 +25,8 @@ import {GameService} from "./game-service/game.service";
     BrowserAnimationsModule,
     MdToolbarModule,
     MdButtonModule,
-    MdIconModule
+    MdIconModule,
+    MdSnackBarModule
   ],
   providers: [
     MdIconRegistry,
