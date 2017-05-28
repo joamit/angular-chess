@@ -1,10 +1,9 @@
-import {Move} from "./move";
-import {Board} from "../board/board";
 import {Piece} from "../pieces/piece";
-export class NormalMove extends Move {
+import {Board} from "../board/board";
+import {CastleMove} from "./castle-move";
+export class QueenSideCastleMove extends CastleMove {
 
   constructor(board: Board, movedPiece: Piece, destinationCoordinate: number) {
     super(board, movedPiece, destinationCoordinate);
   }
-
 }

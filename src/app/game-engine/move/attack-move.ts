@@ -10,6 +10,4 @@ export class AttackMove extends Move {
     this.attackedPiece = attackedPiece;
   }
 
-  execute() {
-  }
 }
