@@ -5,7 +5,6 @@ import {Board} from "../game-engine/board/board";
 export class GameService {
 
   board: Board;
-  rows: any[];
 
   constructor() {
     this.board = new Board();
