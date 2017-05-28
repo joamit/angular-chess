@@ -4,7 +4,7 @@ export abstract class Tile {
     this.tileCoordinate = tileCoordinate;
   }
 
-  protected tileCoordinate: number;
+  tileCoordinate: number;
 
   abstract isOccupied();
 

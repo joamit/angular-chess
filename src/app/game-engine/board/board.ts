@@ -23,8 +23,15 @@ export class Board {
   whitePlayer: WhitePlayer;
   blackPlayer: BlackPlayer;
   currentPlayer: Player;
+  enPassantPawn: Pawn;
 
 
+  /**
+   * Creates a board with 64 empty or occupied tiles. Uses board config to determine if tile
+   * is empty or occupied.
+   * @param boardConfig containing positions of all 32 pieces.
+   * @returns {Tile[]} list of 64 tiles
+   */
   private createGameBoard(boardConfig: BoardConfig[]): Tile[] {
     const tiles: Tile[] = [];
     for (let tileNumber = 0; tileNumber < BoardUtils.NUM_TILES; tileNumber++) {
@@ -40,6 +47,10 @@ export class Board {
     return tiles;
   }
 
+  /**
+   * Initializes board config at standard position(start position for both opponents)
+   * This config will change subsequently when users start moving pieces.
+   */
   createStandardBoard() {
     this.boardConfig.push(new BoardConfig(0, new Rook(0, Alliance.BLACK)));
     this.boardConfig.push(new BoardConfig(1, new Knight(1, Alliance.BLACK)));
@@ -84,6 +95,10 @@ export class Board {
     this.createStandardBoard();
   }
 
+  /**
+   * Initializes board with white and black pieces using the board config.
+   * Board Config contains position of all 32 pieces at any instant
+   */
   initializeBoard() {
     this.gameBoard = this.createGameBoard(this.boardConfig);
 
@@ -99,14 +114,25 @@ export class Board {
     this.currentPlayer = this.nextMoveMaker === Alliance.WHITE ? this.whitePlayer : this.blackPlayer;
   }
 
-  private calculateLegalMoves(whitePieces: Piece[]): Move[] {
+  /**
+   * Calculate legal moves for given pieces
+   * @param pieces white or black pieces
+   * @returns {Move[]} list of all legal moves for every piece
+   */
+  private calculateLegalMoves(pieces: Piece[]): Move[] {
     let legalMoves: Move[] = [];
-    whitePieces.forEach((piece) => {
+    pieces.forEach((piece) => {
       legalMoves = legalMoves.concat(piece.calculateLegalMoves(this));
     });
     return legalMoves;
   }
 
+  /**
+   * Calculate number of active pieces at a time in a given board for given alliance
+   * @param gameBoard current state of tiles
+   * @param alliance WHITE or BLACK
+   * @returns {Piece[]} active pieces
+   */
   private calculateActivePieces(gameBoard: Tile[], alliance: Alliance): Piece[] {
     const pieces: Piece[] = [];
     gameBoard.forEach((tile) => {
@@ -139,5 +165,9 @@ export class Board {
    */
   getAllLegalMoves(): Move[] {
     return this.whitePlayer.legalMoves.concat(this.blackPlayer.legalMoves);
+  }
+
+  setEnPassantPawn(movedPawn: Pawn) {
+    this.enPassantPawn = movedPawn;
   }
 }

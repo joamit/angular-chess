@@ -12,6 +12,10 @@ export abstract class Move {
     this.destinationCoordinate = destinationCoordinate;
   }
 
+  /**
+   * Execute a move, default implementation, child classed may override it
+   * @returns {Board} new transitioned board with updated piece location
+   */
   execute() {
     const transitionBoard: Board = new Board();
     //copy all current player's active pieces as they are to new board, except the piece which is being moved
@@ -34,5 +38,29 @@ export abstract class Move {
     //initialize the board now
     transitionBoard.initializeBoard();
     return transitionBoard;
+  }
+
+  /**
+   * Default implementation, the implementation will change based on move type
+   * @returns {boolean} true or false
+   */
+  isAttack(): boolean {
+    return false;
+  }
+
+  /**
+   * Default implementation, may be overridden as per needs
+   * @returns {boolean} true or false
+   */
+  isCastelingMove(): boolean {
+    return false;
+  }
+
+  /**
+   * Default implementation, may e overridden as per needs
+   * @returns {null} no piece being attacked here
+   */
+  getAttackedPiece(): Piece {
+    return null;
   }
 }

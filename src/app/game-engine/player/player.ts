@@ -5,6 +5,7 @@ import {Piece} from "../pieces/piece";
 import {PieceType} from "../pieces/piece-type.enum";
 import {MoveTransition} from "../move/move-transition";
 import {MoveStatus} from "../move/move-status";
+import {Alliance} from "../../alliance.enum";
 export abstract class Player {
 
   board: Board;
@@ -13,17 +14,16 @@ export abstract class Player {
   opponentMoves: Move[];
   inCheck: boolean;
 
-
   constructor(board: Board, legalMoves: Move[], opponentMoves: Move[]) {
     this.board = board;
-    this.legalMoves = legalMoves;
     this.opponentMoves = opponentMoves;
     this.playerKing = this.establishKing();
+    this.legalMoves = legalMoves.concat(this.calculateKingCastles(legalMoves, opponentMoves));
     //if any of the opponent's legal moves have a valid attack on current player's king, it will be in check
     this.inCheck = Player.calculateAttacksOnTile(this.playerKing.getPosition(), this.opponentMoves).length !== 0;
   }
 
-  private establishKing() {
+  private establishKing(): King {
     let kingPiece: any = null;
     this.getActivePieces().forEach((piece: Piece) => {
       if (piece.getPieceType() === PieceType.BlackKing ||
@@ -57,8 +57,6 @@ export abstract class Player {
     return !this.isInCheck() && !this.hasEscapeMoves();
   }
 
-  //TODO: concrete method implementations
-
   isCastled() {
     return false;
   }
@@ -91,11 +89,13 @@ export abstract class Player {
     return moveTransition;
   }
 
-  abstract getAlliance();
+  abstract getAlliance(): Alliance;
 
-  abstract getActivePieces();
+  abstract getActivePieces(): Piece[];
 
   abstract getOpponent();
+
+  abstract calculateKingCastles(playerLegalMoves: Move[], opponentLegalMoves: Move[]): Move[];
 
   /**
    * Check if current player's king is being attacked by the opponent player's any piece
@@ -103,7 +103,7 @@ export abstract class Player {
    * @param opponentMoves legal moves opponent player currently has
    * @returns {Move[]} list of valid moves which can attack current player's king
    */
-  private static calculateAttacksOnTile(kingPosition: number, opponentMoves: Move[]) {
+  static calculateAttacksOnTile(kingPosition: number, opponentMoves: Move[]) {
     const attackMoves: Move[] = [];
     opponentMoves.forEach((opponentMove) => {
       if (kingPosition === opponentMove.destinationCoordinate) {

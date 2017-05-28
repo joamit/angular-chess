@@ -36,4 +36,14 @@ export abstract class Piece {
   getPieceType() {
     return this.pieceType;
   };
+
+  /**
+   * Equals implementation for Pieces
+   * @param piece to be compared with
+   * @returns {boolean} true if both objects have same properties
+   */
+  equals(piece: Piece): boolean {
+    return this.piecePosition === piece.piecePosition && this.pieceAlliance === piece.pieceAlliance &&
+      this.pieceType === piece.pieceType && this.firstMove === piece.firstMove;
+  }
 }
