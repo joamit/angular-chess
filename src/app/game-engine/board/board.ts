@@ -25,7 +25,7 @@ export class Board {
   currentPlayer: Player;
 
 
-  private createGameBoard(boardConfig: BoardConfig[]) {
+  private createGameBoard(boardConfig: BoardConfig[]): Tile[] {
     const tiles: Tile[] = [];
     for (let tileNumber = 0; tileNumber < BoardUtils.NUM_TILES; tileNumber++) {
       const config: BoardConfig = boardConfig.find((element) => {
@@ -99,7 +99,7 @@ export class Board {
     this.currentPlayer = this.nextMoveMaker === Alliance.WHITE ? this.whitePlayer : this.blackPlayer;
   }
 
-  private calculateLegalMoves(whitePieces: Piece[]) {
+  private calculateLegalMoves(whitePieces: Piece[]): Move[] {
     let legalMoves: Move[] = [];
     whitePieces.forEach((piece) => {
       legalMoves = legalMoves.concat(piece.calculateLegalMoves(this));
@@ -107,7 +107,7 @@ export class Board {
     return legalMoves;
   }
 
-  private calculateActivePieces(gameBoard: Tile[], alliance: Alliance) {
+  private calculateActivePieces(gameBoard: Tile[], alliance: Alliance): Piece[] {
     const pieces: Piece[] = [];
     gameBoard.forEach((tile) => {
       if (tile.isOccupied()) {
@@ -133,4 +133,11 @@ export class Board {
     this.nextMoveMaker = nextMoveMaker;
   }
 
+  /**
+   * get all the legal moves possible for this board
+   * @returns {Move[]} list of legal moves for both players
+   */
+  getAllLegalMoves(): Move[] {
+    return this.whitePlayer.legalMoves.concat(this.blackPlayer.legalMoves);
+  }
 }
