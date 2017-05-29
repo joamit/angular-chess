@@ -13,9 +13,11 @@ export class ToolBarComponent implements OnInit {
   gameService: GameService;
   currentPlayer: number;
   currentAlliance: Alliance;
+  highLightMoves: boolean;
 
   constructor(gameService: GameService) {
     this.gameService = gameService;
+    this.highLightMoves = false;
   }
 
   ngOnInit() {
@@ -33,6 +35,11 @@ export class ToolBarComponent implements OnInit {
   flipBoard() {
     this.currentAlliance = this.currentAlliance === Alliance.WHITE ? Alliance.BLACK : Alliance.WHITE;
     this.gameService.changeDirection(this.currentAlliance);
+  }
+
+  toggleHighlighting() {
+    this.highLightMoves = !this.highLightMoves;
+    this.gameService.toggleHighLighting(this.highLightMoves);
   }
 
 }

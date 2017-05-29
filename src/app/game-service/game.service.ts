@@ -8,11 +8,15 @@ export class GameService {
   board: Board;
   activeAlliance: Alliance;
   allianceChanged$: EventEmitter<Alliance>;
+  highLightMoves: boolean;
+  highLightMovesChanged$: EventEmitter<boolean>;
 
   constructor() {
     this.board = GameService.freshBoard();
     this.activeAlliance = Alliance.WHITE;
+    this.highLightMoves = false;
     this.allianceChanged$ = new EventEmitter();
+    this.highLightMovesChanged$ = new EventEmitter();
   }
 
   static freshBoard(): Board {
@@ -41,5 +45,14 @@ export class GameService {
 
   currentAlliance(): Alliance {
     return this.activeAlliance;
+  }
+
+  toggleHighLighting(highLightMoves: boolean) {
+    this.highLightMoves = highLightMoves;
+    this.highLightMovesChanged$.emit(this.highLightMoves);
+  }
+
+  highLightStatus(): boolean {
+    return this.highLightMoves;
   }
 }

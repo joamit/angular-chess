@@ -24,6 +24,7 @@ import {Alliance} from "../alliance.enum";
       })),
       state('active', style({
         backgroundColor: '#faa009',
+        border: '1px solid #b37104',
         transform: 'scale(1.1)'
       })),
       transition('inactive => active', animate('100ms ease-in')),
@@ -40,13 +41,18 @@ export class GameBoardComponent implements OnInit {
   destinationTile: Tile;
   humanMovedPiece: Piece;
   boardDirection: Alliance;
+  humanLegalMoves: Move[];
+  highLightLegalMoves: boolean;
 
   constructor(private gameService: GameService, snackBar: MdSnackBar) {
-    this.gameService.allianceChanged$.subscribe((changedAlliance) => this.onAllianceChanged(changedAlliance))
-    this.board = this.gameService.board; //get eight rows with eight columns in each row
+    this.gameService.allianceChanged$.subscribe((changedAlliance) => this.onAllianceChanged(changedAlliance));
+    this.gameService.highLightMovesChanged$.subscribe((changedStatus) => this.onHighLightStatusChanged(changedStatus));
+    this.board = this.gameService.board;
     this.setupTileRows(this.board.gameBoard);
     this.snackBar = snackBar;
     this.boardDirection = Alliance.WHITE;
+    this.humanMovedPiece = null;
+    this.highLightLegalMoves = this.gameService.highLightStatus();
   }
 
   /**
@@ -84,26 +90,29 @@ export class GameBoardComponent implements OnInit {
       if (this.sourceTile) {
         this.destinationTile = clickedTile;
         this.moveThePiece();
-
-        //reset source and destination tile now
-        this.sourceTile = null;
-        this.destinationTile = null;
-        this.humanMovedPiece = null;
+        this.resetVariables();
 
       } else {
         this.sourceTile = clickedTile;
         this.humanMovedPiece = clickedTile.getPiece();
+        if (this.highLightLegalMoves) {
+          this.humanLegalMoves = this.humanMovedPiece.calculateLegalMoves(this.board);
+        }
       }
     } else {
       this.destinationTile = clickedTile;
       this.moveThePiece();
-
-      //reset source and destination tile now
-      this.sourceTile = null;
-      this.destinationTile = null;
-      this.humanMovedPiece = null;
+      this.resetVariables();
     }
 
+  }
+
+  private resetVariables() {
+//reset source and destination tile now
+    this.sourceTile = null;
+    this.destinationTile = null;
+    this.humanMovedPiece = null;
+    this.humanLegalMoves = null;
   }
 
   private moveThePiece() {
@@ -142,5 +151,30 @@ export class GameBoardComponent implements OnInit {
     } else {
       this.setupTileRows(currentBoard.gameBoard);
     }
+  }
+
+  private onHighLightStatusChanged(changedStatus: boolean) {
+    console.log('highlight status was changed to ', changedStatus);
+    this.highLightLegalMoves = changedStatus;
+    if (this.highLightLegalMoves && this.humanMovedPiece !== null) {
+      this.humanLegalMoves = this.humanMovedPiece.calculateLegalMoves(this.board);
+    }
+    if (!this.highLightLegalMoves) {
+      this.openSnackBar('Highlighting Disabled', '');
+    }
+  }
+
+  checkTileState(tile: Tile): string {
+    let tileState: string = 'inactive';
+    if (tile.state === 'active') {
+      tileState = 'active';
+    } else if (this.humanLegalMoves && this.humanLegalMoves !== null && this.humanLegalMoves.length > 0) {
+      this.humanLegalMoves.forEach((move: Move) => {
+        if (move.destinationCoordinate === tile.tileCoordinate) {
+          tileState = 'active';
+        }
+      });
+    }
+    return tileState;
   }
 }
