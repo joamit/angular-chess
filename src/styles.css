@@ -23,3 +23,7 @@ body {
     -ms-flex-align: center;
     align-items: center;
 }
+
+.mat-menu-content {
+  background-color: #ffd740 !important;
+}

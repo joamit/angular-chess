@@ -11,6 +11,7 @@ import {MoveTransition} from "../game-engine/move/move-transition";
 import {MoveStatus} from "../game-engine/move/move-status";
 import {MoveFactory} from "../game-engine/move/move-factory";
 import {NullMove} from "../game-engine/move/null-move";
+import {Alliance} from "../alliance.enum";
 
 @Component({
   selector: 'app-game-board',
@@ -38,15 +39,22 @@ export class GameBoardComponent implements OnInit {
   sourceTile: Tile;
   destinationTile: Tile;
   humanMovedPiece: Piece;
+  boardDirection: Alliance;
 
   constructor(private gameService: GameService, snackBar: MdSnackBar) {
+    this.gameService.allianceChanged$.subscribe((changedAlliance) => this.onAllianceChanged(changedAlliance))
     this.board = this.gameService.board; //get eight rows with eight columns in each row
-    this.createRows();
+    this.setupTileRows(this.board.gameBoard);
     this.snackBar = snackBar;
+    this.boardDirection = Alliance.WHITE;
   }
 
-  private createRows() {
-    this.rows = this.board.gameBoard.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
+  /**
+   * Setup 64 tiles in 8 rows with each row containing 8 columns
+   * @param tiles list of board tiles
+   */
+  private setupTileRows(tiles: Tile[]) {
+    this.rows = tiles.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
       : rows[rows.length - 1].push(key)) && rows, []);
   }
 
@@ -110,7 +118,7 @@ export class GameBoardComponent implements OnInit {
       console.log('Move Transition', moveTransition);
       if (moveTransition.moveStatus === MoveStatus.Done) {
         this.board = moveTransition.transitionBoard;
-        this.createRows()
+        this.setupTilesAsPerAlliance(this.boardDirection, this.board);
       } else {
         this.openSnackBar('This move can not be executed!!', `${moveTransition.moveStatus}`)
       }
@@ -123,4 +131,16 @@ export class GameBoardComponent implements OnInit {
     });
   }
 
+  private onAllianceChanged(changedAlliance: Alliance) {
+    this.boardDirection = changedAlliance;
+    this.setupTilesAsPerAlliance(this.boardDirection, GameService.freshBoard());
+  }
+
+  private setupTilesAsPerAlliance(boardDirection: Alliance, currentBoard: Board) {
+    if (boardDirection === Alliance.BLACK) {
+      this.setupTileRows(currentBoard.gameBoard.reverse());
+    } else {
+      this.setupTileRows(currentBoard.gameBoard);
+    }
+  }
 }

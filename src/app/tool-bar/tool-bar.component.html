@@ -1,8 +1,19 @@
 <md-toolbar color="accent">
   <h4>AngularChess</h4>
+
+  <h5 *ngIf="currentPlayer === -1">White Moves</h5>
+  <h5 *ngIf="currentPlayer === 1">Black Moves</h5>
+
   <span class="fill-space"></span>
-  <span *ngIf="currentPlayer === -1">White Moves</span>
-  <span *ngIf="currentPlayer === 1">Black Moves</span>
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>settings_applications</md-icon>
+  </button>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item (click)="flipBoard()">
+      <md-icon>rotate_right</md-icon>
+      <span>Flip board</span>
+    </button>
+  </md-menu>
   <!--<button *ngIf="!isStarted()" md-fab (click)="toggle()">
     <md-icon svgIcon="play"></md-icon>
   </button>

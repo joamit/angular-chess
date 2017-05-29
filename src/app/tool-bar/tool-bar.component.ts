@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {GameService} from "../game-service/game.service";
-import {Board} from "../game-engine/board/board";
+import {Alliance} from "../alliance.enum";
 
 @Component({
   selector: 'app-tool-bar',
@@ -12,15 +12,14 @@ export class ToolBarComponent implements OnInit {
   private gameOver: boolean;
   gameService: GameService;
   currentPlayer: number;
+  currentAlliance: Alliance;
 
   constructor(gameService: GameService) {
     this.gameService = gameService;
   }
 
   ngOnInit() {
-    const gameBoard: Board = this.gameService.gameBoard();
-    console.log(gameBoard);
-    this.currentPlayer = gameBoard.currentPlayer.getAlliance()
+    this.currentAlliance = this.gameService.currentAlliance();
   }
 
   isStarted() {
@@ -29,6 +28,11 @@ export class ToolBarComponent implements OnInit {
 
   toggle() {
     this.gameOver = !this.gameOver;
+  }
+
+  flipBoard() {
+    this.currentAlliance = this.currentAlliance === Alliance.WHITE ? Alliance.BLACK : Alliance.WHITE;
+    this.gameService.changeDirection(this.currentAlliance);
   }
 
 }
