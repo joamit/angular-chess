@@ -13,6 +13,7 @@ import {Alliance} from '../../alliance.enum';
 import {WhitePlayer} from '../player/white-player';
 import {BlackPlayer} from '../player/black-player';
 import {Player} from '../player/player';
+import {TileUtils} from './tile-utils';
 export class Board {
 
   boardConfig: BoardConfig[];
@@ -39,9 +40,9 @@ export class Board {
         return element._position === tileNumber;
       });
       if (config && config._piece) {
-        tiles.push(BoardUtils.createTile(tileNumber, config._piece));
+        tiles.push(TileUtils.createTile(tileNumber, config._piece));
       } else {
-        tiles.push(BoardUtils.createTile(tileNumber, null));
+        tiles.push(TileUtils.createTile(tileNumber, null));
       }
     }
     return tiles;

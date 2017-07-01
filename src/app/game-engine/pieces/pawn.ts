@@ -6,6 +6,7 @@ import {BoardUtils} from '../board/board-utils';
 import {NormalMove} from '../move/normal-move';
 import {AttackMove} from '../move/attack-move';
 import {PieceType} from './piece-type.enum';
+import {TileUtils} from '../board/tile-utils';
 export class Pawn extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [7, 8, 9, 16];
@@ -27,14 +28,14 @@ export class Pawn extends Piece {
     this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinateOffset) => {
 
       const candidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance * candidateCoordinateOffset);
-      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+      if (TileUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
 
         if (candidateCoordinateOffset === 8 && !board.getTile(candidateDestinationCoordinate).isOccupied()) {
           // this is normal pawn move
           legalMoves.push(new NormalMove(board, this, candidateDestinationCoordinate));
         } else if (candidateCoordinateOffset === 16 && this.isFirstMove() &&
           ((BoardUtils.SECOND_ROW[this.piecePosition] && this.pieceAlliance === Alliance.BLACK) ||
-          BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceAlliance === Alliance.WHITE)) {
+          (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.pieceAlliance === Alliance.WHITE))) {
           // check if both front tiles are not occupied for the jump
           const behindCandidateCoordinate = this.piecePosition + (this.pieceAlliance * 8);
           if (!board.getTile(behindCandidateCoordinate).isOccupied() && !board.getTile(candidateDestinationCoordinate).isOccupied()) {

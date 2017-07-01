@@ -6,6 +6,7 @@ import {BoardUtils} from '../board/board-utils';
 import {AttackMove} from '../move/attack-move';
 import {NormalMove} from '../move/normal-move';
 import {PieceType} from './piece-type.enum';
+import {TileUtils} from '../board/tile-utils';
 export class King extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-9, -8, -7, -1, 1, 7, 8, 9];
@@ -31,7 +32,7 @@ export class King extends Piece {
     this.CANDIDATE_MOVE_COORDINATES.forEach((candidateCoordinateOffset) => {
 
       const candidateDestinationCoordinate = this.piecePosition + candidateCoordinateOffset;
-      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate) &&
+      if (TileUtils.isValidTileCoordinate(candidateDestinationCoordinate) &&
         !(King.isFirstColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
         King.isEighthColumnExclusion(this.piecePosition, candidateCoordinateOffset))) {
         if (board.getTile(candidateDestinationCoordinate).isOccupied()) {

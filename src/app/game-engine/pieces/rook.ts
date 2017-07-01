@@ -7,6 +7,7 @@ import {NormalMove} from '../move/normal-move';
 import {Tile} from '../board/tile';
 import {AttackMove} from '../move/attack-move';
 import {PieceType} from './piece-type.enum';
+import {TileUtils} from '../board/tile-utils';
 export class Rook extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-8, -1, 1, 8];
@@ -30,14 +31,14 @@ export class Rook extends Piece {
       let candidateDestinationCoordinate = this.piecePosition;
 
       // Bishop can move freely in the diagonals, calculating all such coordinates
-      while (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+      while (TileUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
         // check for exclusions where the algorithm doesn't apply
         if (Rook.isFirstColumnExclusion(candidateDestinationCoordinate, destinationCoordinateOffset) ||
           Rook.isEighthColumnExclusion(candidateDestinationCoordinate, destinationCoordinateOffset)) {
           break;
         }
         candidateDestinationCoordinate += destinationCoordinateOffset;
-        if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+        if (TileUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
           const candidateTile: Tile = board.getTile(candidateDestinationCoordinate);
           if (candidateTile.isOccupied()) {
             const pieceAtDestination: Piece = candidateTile.getPiece();

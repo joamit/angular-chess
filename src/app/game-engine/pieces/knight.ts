@@ -7,6 +7,7 @@ import {BoardUtils} from '../board/board-utils';
 import {AttackMove} from '../move/attack-move';
 import {NormalMove} from '../move/normal-move';
 import {PieceType} from './piece-type.enum';
+import {TileUtils} from '../board/tile-utils';
 export class Knight extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [-17, -15, -10, -6, 6, 10, 15, 17];
@@ -45,7 +46,7 @@ export class Knight extends Piece {
 
       const candidateDestinationCoordinate: number = this.piecePosition + candidateCoordinateOffset;
 
-      if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)
+      if (TileUtils.isValidTileCoordinate(candidateDestinationCoordinate)
         && !(Knight.isFirstColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
         Knight.isSecondColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
         Knight.isSeventhColumnExclusion(this.piecePosition, candidateCoordinateOffset) ||
