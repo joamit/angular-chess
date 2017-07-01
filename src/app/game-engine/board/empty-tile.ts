@@ -1,4 +1,4 @@
-import {Tile} from "./tile";
+import {Tile} from './tile';
 export class EmptyTile extends Tile {
 
   constructor(tileCoordinate: number) {

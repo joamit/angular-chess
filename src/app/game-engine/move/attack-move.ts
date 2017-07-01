@@ -1,6 +1,6 @@
-import {Move} from "./move";
-import {Board} from "../board/board";
-import {Piece} from "../pieces/piece";
+import {Move} from './move';
+import {Board} from '../board/board';
+import {Piece} from '../pieces/piece';
 export class AttackMove extends Move {
 
   attackedPiece: Piece;

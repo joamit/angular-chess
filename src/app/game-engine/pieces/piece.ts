@@ -1,7 +1,7 @@
-import {Alliance} from "../../alliance.enum";
-import {Board} from "../board/board";
-import {PieceType} from "./piece-type.enum";
-import {Move} from "../move/move";
+import {Alliance} from '../../alliance.enum';
+import {Board} from '../board/board';
+import {PieceType} from './piece-type.enum';
+import {Move} from '../move/move';
 export abstract class Piece {
 
   protected piecePosition: number;
@@ -13,7 +13,7 @@ export abstract class Piece {
   constructor(piecePosition: number, pieceAlliance: Alliance, firstMove: boolean) {
     this.piecePosition = piecePosition;
     this.pieceAlliance = pieceAlliance;
-    //TODO: logic for first move for certain pieces
+    // TODO: logic for first move for certain pieces
     this.firstMove = firstMove;
   }
 

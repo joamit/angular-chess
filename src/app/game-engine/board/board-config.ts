@@ -1,4 +1,4 @@
-import {Piece} from "../pieces/piece";
+import {Piece} from '../pieces/piece';
 export class BoardConfig {
 
   _position: number;

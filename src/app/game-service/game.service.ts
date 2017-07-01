@@ -1,6 +1,6 @@
-import {Injectable, EventEmitter} from "@angular/core";
-import {Board} from "../game-engine/board/board";
-import {Alliance} from "../alliance.enum";
+import {EventEmitter, Injectable} from '@angular/core';
+import {Board} from '../game-engine/board/board';
+import {Alliance} from '../alliance.enum';
 
 @Injectable()
 export class GameService {
@@ -12,14 +12,14 @@ export class GameService {
   highLightMovesChanged$: EventEmitter<boolean>;
 
   constructor() {
-    this.board = GameService.freshBoard();
+    this.board = this.freshBoard();
     this.activeAlliance = Alliance.WHITE;
     this.highLightMoves = false;
     this.allianceChanged$ = new EventEmitter();
     this.highLightMovesChanged$ = new EventEmitter();
   }
 
-  static freshBoard(): Board {
+  freshBoard(): Board {
     const board = new Board();
     board.createStandardBoard();
     board.initializeBoard();

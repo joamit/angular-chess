@@ -1,5 +1,5 @@
-import {Board} from "../board/board";
-import {Piece} from "../pieces/piece";
+import {Board} from '../board/board';
+import {Piece} from '../pieces/piece';
 export abstract class Move {
 
   board: Board;
@@ -18,7 +18,7 @@ export abstract class Move {
    */
   execute() {
     const transitionBoard: Board = new Board();
-    //copy all current player's active pieces as they are to new board, except the piece which is being moved
+    // copy all current player's active pieces as they are to new board, except the piece which is being moved
     this.board.currentPlayer.getActivePieces().forEach((activePiece) => {
       if (this.movedPiece.getPosition() === activePiece.getPosition()) {
         console.log('This piece will be moved. Hence not adding it to the board.', activePiece);
@@ -27,16 +27,16 @@ export abstract class Move {
       }
     });
 
-    //copy enemy player's all active pieces as it is
+    // copy enemy player's all active pieces as it is
     this.board.currentPlayer.getOpponent().getActivePieces().forEach((activePiece) => {
       transitionBoard.setPiece(activePiece);
     });
 
-    //set the moved piece now
+    // set the moved piece now
     transitionBoard.setPiece(this.movedPiece.movePiece(this));
     transitionBoard.setNextMoveMaker(this.board.currentPlayer.getOpponent().getAlliance());
 
-    //initialize the board now
+    // initialize the board now
     transitionBoard.initializeBoard();
     return transitionBoard;
   }

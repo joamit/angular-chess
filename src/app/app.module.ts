@@ -1,22 +1,15 @@
-import "hammerjs";
-import {BrowserModule, DomSanitizer} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-import {AppComponent} from "./app.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {
-  MdToolbarModule,
-  MdButtonModule,
-  MdIconModule,
-  MdIconRegistry,
-  MdSnackBarModule,
-  MdMenuModule
-} from "@angular/material";
-import {ToolBarComponent} from "./tool-bar/tool-bar.component";
-import {FooterComponent} from "./footer/footer.component";
-import {GameBoardComponent} from "./game-board/game-board.component";
-import {GameService} from "./game-service/game.service";
+import 'hammerjs';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdButtonModule, MdIconModule, MdIconRegistry, MdMenuModule, MdSnackBarModule, MdToolbarModule} from '@angular/material';
+import {ToolBarComponent} from './tool-bar/tool-bar.component';
+import {FooterComponent} from './footer/footer.component';
+import {GameBoardComponent} from './game-board/game-board.component';
+import {GameService} from './game-service/game.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +39,7 @@ export class AppModule {
   constructor(mdIconRegistry: MdIconRegistry, domSanitizer: DomSanitizer) {
     mdIconRegistry.addSvgIcon('play', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/play.svg'));
     mdIconRegistry.addSvgIcon('stop', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/stop.svg'));
-    //add all the chess pieces to icon registry
+    // add all the chess pieces to icon registry
     mdIconRegistry.addSvgIcon('0', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/BlackBishop.svg'));
     mdIconRegistry.addSvgIcon('1', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/BlackKing.svg'));
     mdIconRegistry.addSvgIcon('2', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/BlackKnight.svg'));

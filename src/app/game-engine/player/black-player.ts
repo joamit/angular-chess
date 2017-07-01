@@ -1,11 +1,11 @@
-import {Board} from "../board/board";
-import {Move} from "../move/move";
-import {Player} from "./player";
-import {Alliance} from "../../alliance.enum";
-import {Tile} from "../board/tile";
-import {PieceType} from "../pieces/piece-type.enum";
-import {QueenSideCastleMove} from "../move/queen-side-castle-move";
-import {KingSideCastleMove} from "../move/king-side-castle-move";
+import {Board} from '../board/board';
+import {Move} from '../move/move';
+import {Player} from './player';
+import {Alliance} from '../../alliance.enum';
+import {Tile} from '../board/tile';
+import {PieceType} from '../pieces/piece-type.enum';
+import {QueenSideCastleMove} from '../move/queen-side-castle-move';
+import {KingSideCastleMove} from '../move/king-side-castle-move';
 export class BlackPlayer extends Player {
 
   constructor(board: Board, legalMoves: Move[], opponentMoves: Move[]) {
@@ -33,7 +33,7 @@ export class BlackPlayer extends Player {
   calculateKingCastles(playerLegalMoves: Move[], opponentLegalMoves: Move[]): Move[] {
     const kingCastles: Move[] = [];
     if (this.playerKing.isFirstMove() && !this.inCheck) {
-      //calculate king side castle
+      // calculate king side castle
       if (!this.board.getTile(5).isOccupied() && !this.board.getTile(6).isOccupied()) {
         const rookTile: Tile = this.board.getTile(7);
         if (rookTile.isOccupied() && rookTile.getPiece().isFirstMove()) {
@@ -45,7 +45,7 @@ export class BlackPlayer extends Player {
         }
       }
 
-      //calculate queen side castle here
+      // calculate queen side castle here
       if (!this.board.getTile(1).isOccupied() && !this.board.getTile(2).isOccupied() && !this.board.getTile(3).isOccupied()) {
         const rookTile: Tile = this.board.getTile(0);
         if (rookTile.isOccupied() && rookTile.getPiece().isFirstMove()) {

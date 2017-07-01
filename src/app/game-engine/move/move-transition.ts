@@ -1,6 +1,6 @@
-import {Board} from "../board/board";
-import {Move} from "./move";
-import {MoveStatus} from "./move-status";
+import {Board} from '../board/board';
+import {Move} from './move';
+import {MoveStatus} from './move-status';
 export class MoveTransition {
 
   transitionBoard: Board;

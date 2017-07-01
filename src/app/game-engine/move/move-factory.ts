@@ -1,6 +1,6 @@
-import {Board} from "../board/board";
-import {Move} from "./move";
-import {NullMove} from "./null-move";
+import {Board} from '../board/board';
+import {Move} from './move';
+import {NullMove} from './null-move';
 export class MoveFactory {
 
   /**

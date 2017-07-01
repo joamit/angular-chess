@@ -1,7 +1,7 @@
-import {Piece} from "../pieces/piece";
-import {Board} from "../board/board";
-import {CastleMove} from "./castle-move";
-import {Rook} from "../pieces/rook";
+import {Piece} from '../pieces/piece';
+import {Board} from '../board/board';
+import {CastleMove} from './castle-move';
+import {Rook} from '../pieces/rook';
 export class QueenSideCastleMove extends CastleMove {
 
   constructor(board: Board, movedPiece: Piece, destinationCoordinate: number,

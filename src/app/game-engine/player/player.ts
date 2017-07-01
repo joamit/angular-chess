@@ -1,11 +1,11 @@
-import {Board} from "../board/board";
-import {Move} from "../move/move";
-import {King} from "../pieces/king";
-import {Piece} from "../pieces/piece";
-import {PieceType} from "../pieces/piece-type.enum";
-import {MoveTransition} from "../move/move-transition";
-import {MoveStatus} from "../move/move-status";
-import {Alliance} from "../../alliance.enum";
+import {Board} from '../board/board';
+import {Move} from '../move/move';
+import {King} from '../pieces/king';
+import {Piece} from '../pieces/piece';
+import {PieceType} from '../pieces/piece-type.enum';
+import {MoveTransition} from '../move/move-transition';
+import {MoveStatus} from '../move/move-status';
+import {Alliance} from '../../alliance.enum';
 export abstract class Player {
 
   board: Board;
@@ -14,12 +14,29 @@ export abstract class Player {
   opponentMoves: Move[];
   inCheck: boolean;
 
+
+  /**
+   * Check if current player's king is being attacked by the opponent player's any piece
+   * @param kingPosition current player's king
+   * @param opponentMoves legal moves opponent player currently has
+   * @returns {Move[]} list of valid moves which can attack current player's king
+   */
+  static calculateAttacksOnTile(kingPosition: number, opponentMoves: Move[]) {
+    const attackMoves: Move[] = [];
+    opponentMoves.forEach((opponentMove) => {
+      if (kingPosition === opponentMove.destinationCoordinate) {
+        attackMoves.push(opponentMove);
+      }
+    });
+    return attackMoves;
+  }
+
   constructor(board: Board, legalMoves: Move[], opponentMoves: Move[]) {
     this.board = board;
     this.opponentMoves = opponentMoves;
     this.playerKing = this.establishKing();
     this.legalMoves = legalMoves.concat(this.calculateKingCastles(legalMoves, opponentMoves));
-    //if any of the opponent's legal moves have a valid attack on current player's king, it will be in check
+    // if any of the opponent's legal moves have a valid attack on current player's king, it will be in check
     this.inCheck = Player.calculateAttacksOnTile(this.playerKing.getPosition(), this.opponentMoves).length !== 0;
   }
 
@@ -68,21 +85,21 @@ export abstract class Player {
    */
   makeMove(move: Move) {
     let moveTransition: MoveTransition;
-    //if move is not legal, we won't create a new board and mark move status as illegal
+    // if move is not legal, we won't create a new board and mark move status as illegal
     if (!this.isMoveLegal(move)) {
-      moveTransition = new MoveTransition(this.board, move, MoveStatus.Illegal_Move)
+      moveTransition = new MoveTransition(this.board, move, MoveStatus.Illegal_Move);
     } else {
-      //execute the move now
+      // execute the move now
       const transitionBoard: Board = move.execute();
-      //if we execute the move and see if current player's king ends up in check
+      // if we execute the move and see if current player's king ends up in check
       const kingAttacks: Move[] = Player.calculateAttacksOnTile(transitionBoard.currentPlayer.getOpponent().getPlayerKing().getPosition(),
         transitionBoard.currentPlayer.legalMoves);
 
-      //this means king is going to end up in check by opponent if this move is made
+      // this means king is going to end up in check by opponent if this move is made
       if (kingAttacks && kingAttacks.length !== 0) {
         moveTransition = new MoveTransition(this.board, move, MoveStatus.Leaves_Player_In_Check);
       } else {
-        //make a new move and transition the piece
+        // make a new move and transition the piece
         moveTransition = new MoveTransition(transitionBoard, move, MoveStatus.Done);
       }
     }
@@ -96,22 +113,6 @@ export abstract class Player {
   abstract getOpponent();
 
   abstract calculateKingCastles(playerLegalMoves: Move[], opponentLegalMoves: Move[]): Move[];
-
-  /**
-   * Check if current player's king is being attacked by the opponent player's any piece
-   * @param kingPosition current player's king
-   * @param opponentMoves legal moves opponent player currently has
-   * @returns {Move[]} list of valid moves which can attack current player's king
-   */
-  static calculateAttacksOnTile(kingPosition: number, opponentMoves: Move[]) {
-    const attackMoves: Move[] = [];
-    opponentMoves.forEach((opponentMove) => {
-      if (kingPosition === opponentMove.destinationCoordinate) {
-        attackMoves.push(opponentMove);
-      }
-    });
-    return attackMoves;
-  }
 
   /**
    * If any of current player's legal moves allow its king to escape current check, return true

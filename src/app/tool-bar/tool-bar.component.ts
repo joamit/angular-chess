@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {GameService} from "../game-service/game.service";
-import {Alliance} from "../alliance.enum";
+import {Component, OnInit} from '@angular/core';
+import {GameService} from '../game-service/game.service';
+import {Alliance} from '../alliance.enum';
 
 @Component({
   selector: 'app-tool-bar',

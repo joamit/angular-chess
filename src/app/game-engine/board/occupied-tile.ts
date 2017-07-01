@@ -1,5 +1,5 @@
-import {Tile} from "./tile";
-import {Piece} from "../pieces/piece";
+import {Tile} from './tile';
+import {Piece} from '../pieces/piece';
 export class OccupiedTile extends Tile {
 
   private pieceOnTile: Piece;

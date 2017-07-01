@@ -1,17 +1,17 @@
-import {Component, OnInit} from "@angular/core";
-import {GameService} from "../game-service/game.service";
-import {COLORS} from "../app.constants";
-import {Board} from "../game-engine/board/board";
-import {Tile} from "../game-engine/board/tile";
-import {transition, style, state, trigger, animate} from "@angular/animations";
-import {MdSnackBar} from "@angular/material";
-import {Piece} from "../game-engine/pieces/piece";
-import {Move} from "../game-engine/move/move";
-import {MoveTransition} from "../game-engine/move/move-transition";
-import {MoveStatus} from "../game-engine/move/move-status";
-import {MoveFactory} from "../game-engine/move/move-factory";
-import {NullMove} from "../game-engine/move/null-move";
-import {Alliance} from "../alliance.enum";
+import {Component, OnInit} from '@angular/core';
+import {GameService} from '../game-service/game.service';
+import {COLORS} from '../app.constants';
+import {Board} from '../game-engine/board/board';
+import {Tile} from '../game-engine/board/tile';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MdSnackBar} from '@angular/material';
+import {Piece} from '../game-engine/pieces/piece';
+import {Move} from '../game-engine/move/move';
+import {MoveTransition} from '../game-engine/move/move-transition';
+import {MoveStatus} from '../game-engine/move/move-status';
+import {MoveFactory} from '../game-engine/move/move-factory';
+import {NullMove} from '../game-engine/move/null-move';
+import {Alliance} from '../alliance.enum';
 
 @Component({
   selector: 'app-game-board',
@@ -40,19 +40,21 @@ export class GameBoardComponent implements OnInit {
   sourceTile: Tile;
   destinationTile: Tile;
   humanMovedPiece: Piece;
-  boardDirection: Alliance;
   humanLegalMoves: Move[];
+  boardDirection: Alliance;
+  gService: GameService;
   highLightLegalMoves: boolean;
 
   constructor(private gameService: GameService, snackBar: MdSnackBar) {
-    this.gameService.allianceChanged$.subscribe((changedAlliance) => this.onAllianceChanged(changedAlliance));
-    this.gameService.highLightMovesChanged$.subscribe((changedStatus) => this.onHighLightStatusChanged(changedStatus));
-    this.board = this.gameService.board;
+    this.gService = gameService;
+    this.gService.allianceChanged$.subscribe((changedAlliance) => this.onAllianceChanged(changedAlliance));
+    this.gService.highLightMovesChanged$.subscribe((changedStatus) => this.onHighLightStatusChanged(changedStatus));
+    this.board = this.gService.board;
     this.setupTileRows(this.board.gameBoard);
     this.snackBar = snackBar;
     this.boardDirection = Alliance.WHITE;
     this.humanMovedPiece = null;
-    this.highLightLegalMoves = this.gameService.highLightStatus();
+    this.highLightLegalMoves = this.gService.highLightStatus();
   }
 
   /**
@@ -60,7 +62,7 @@ export class GameBoardComponent implements OnInit {
    * @param tiles list of board tiles
    */
   private setupTileRows(tiles: Tile[]) {
-    this.rows = tiles.reduce((rows, key, index) => (index % 8 == 0 ? rows.push([key])
+    this.rows = tiles.reduce((rows, key, index) => (index % 8 === 0 ? rows.push([key])
       : rows[rows.length - 1].push(key)) && rows, []);
   }
 
@@ -75,6 +77,11 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
+  /**
+   * Execute this function whenever user clicks on a tile,
+   * TODO: implement functionality of user deselecting an already selected piece on right mouse click
+   * @param clickedTile
+   */
   onTileClick(clickedTile: Tile) {
     this.rows.forEach((row: Tile[]) => {
       row.forEach((tile: Tile) => {
@@ -108,7 +115,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   private resetVariables() {
-//reset source and destination tile now
+    // reset source and destination tile now
     this.sourceTile = null;
     this.destinationTile = null;
     this.humanMovedPiece = null;
@@ -129,7 +136,7 @@ export class GameBoardComponent implements OnInit {
         this.board = moveTransition.transitionBoard;
         this.setupTilesAsPerAlliance(this.boardDirection, this.board);
       } else {
-        this.openSnackBar('This move can not be executed!!', `${moveTransition.moveStatus}`)
+        this.openSnackBar('This move can not be executed!!', `${moveTransition.moveStatus}`);
       }
     }
   }
@@ -142,7 +149,7 @@ export class GameBoardComponent implements OnInit {
 
   private onAllianceChanged(changedAlliance: Alliance) {
     this.boardDirection = changedAlliance;
-    this.setupTilesAsPerAlliance(this.boardDirection, GameService.freshBoard());
+    this.setupTilesAsPerAlliance(this.boardDirection, this.gService.freshBoard());
   }
 
   private setupTilesAsPerAlliance(boardDirection: Alliance, currentBoard: Board) {
@@ -165,7 +172,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   checkTileState(tile: Tile): string {
-    let tileState: string = 'inactive';
+    let tileState = 'inactive';
     if (tile.state === 'active') {
       tileState = 'active';
     } else if (this.humanLegalMoves && this.humanLegalMoves !== null && this.humanLegalMoves.length > 0) {

@@ -1,7 +1,7 @@
-import {Move} from "./move";
-import {Piece} from "../pieces/piece";
-import {Board} from "../board/board";
-import {Rook} from "../pieces/rook";
+import {Move} from './move';
+import {Piece} from '../pieces/piece';
+import {Board} from '../board/board';
+import {Rook} from '../pieces/rook';
 export abstract class CastleMove extends Move {
 
   castleRook: Rook;
@@ -24,13 +24,13 @@ export abstract class CastleMove extends Move {
   execute(): Board {
     const transitionBoard: Board = new Board();
     this.board.currentPlayer.getActivePieces().forEach((activePiece) => {
-      //check if these active pieces are not king(actively being moved) and castle rook
+      // check if these active pieces are not king(actively being moved) and castle rook
       if (activePiece !== this.castleRook && activePiece !== this.movedPiece) {
         transitionBoard.setPiece(activePiece);
       }
     });
 
-    //copy enemy player's all active pieces as it is
+    // copy enemy player's all active pieces as it is
     this.board.currentPlayer.getOpponent().getActivePieces().forEach((activePiece) => {
       transitionBoard.setPiece(activePiece);
     });

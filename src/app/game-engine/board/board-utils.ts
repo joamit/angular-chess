@@ -1,14 +1,20 @@
-import {OccupiedTile} from "./occupied-tile";
-import {Piece} from "../pieces/piece";
-import {EmptyTile} from "./empty-tile";
+import {OccupiedTile} from './occupied-tile';
+import {Piece} from '../pieces/piece';
+import {EmptyTile} from './empty-tile';
 export class BoardUtils {
 
-  private constructor() {
-    //can not use this constructor
-  }
+  public static NUM_TILES = 64;
+  public static NUM_TILES_PER_ROW = 8;
 
-  public static NUM_TILES: number = 64;
-  public static NUM_TILES_PER_ROW: number = 8;
+  static FIRST_COLUMN: boolean[] = BoardUtils.initColumn(0);
+  static SECOND_COLUMN: boolean[] = BoardUtils.initColumn(1);
+  static SEVENTH_COLUMN: boolean[] = BoardUtils.initColumn(6);
+  static EIGHTH_COLUMN: boolean[] = BoardUtils.initColumn(7);
+
+  static SECOND_ROW: boolean[] = BoardUtils.initRow(8);
+  static SEVENTH_ROW: boolean[] = BoardUtils.initRow(48);
+
+  private static EMPTY_TILES_CACHE = BoardUtils.createEmptyTiles();
 
   private static initColumn(number: number) {
     const columns: boolean[] = Array(BoardUtils.NUM_TILES).fill(false);
@@ -17,11 +23,6 @@ export class BoardUtils {
     }
     return columns;
   }
-
-  static FIRST_COLUMN: boolean[] = BoardUtils.initColumn(0);
-  static SECOND_COLUMN: boolean[] = BoardUtils.initColumn(1);
-  static SEVENTH_COLUMN: boolean[] = BoardUtils.initColumn(6);
-  static EIGHTH_COLUMN: boolean[] = BoardUtils.initColumn(7);
 
   static isValidTileCoordinate(tileCoordinate: number) {
     return tileCoordinate >= 0 && tileCoordinate < BoardUtils.NUM_TILES;
@@ -32,12 +33,9 @@ export class BoardUtils {
     do {
       rows[number] = true;
       number++;
-    } while (number % BoardUtils.NUM_TILES_PER_ROW != 0);
+    } while (number % BoardUtils.NUM_TILES_PER_ROW !== 0);
     return rows;
   }
-
-  static SECOND_ROW: boolean[] = BoardUtils.initRow(8);
-  static SEVENTH_ROW: boolean[] = BoardUtils.initRow(48);
 
   static createEmptyTiles() {
     const emptyTiles = [];
@@ -50,13 +48,15 @@ export class BoardUtils {
     return Object.freeze(emptyTiles);
   }
 
-  private static EMPTY_TILES_CACHE = BoardUtils.createEmptyTiles();
-
   static createTile(tileCoordinate: number, pieceOnTile: Piece) {
     if (pieceOnTile == null) {
-      return this.EMPTY_TILES_CACHE.find(tile => tile.coordinate == tileCoordinate).tile;
+      return this.EMPTY_TILES_CACHE.find(tile => tile.coordinate === tileCoordinate).tile;
     } else {
       return new OccupiedTile(tileCoordinate, pieceOnTile);
     }
+  }
+
+  private constructor() {
+    // can not use this constructor
   }
 }

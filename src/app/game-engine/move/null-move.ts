@@ -1,5 +1,5 @@
-import {Move} from "./move";
-import {Board} from "../board/board";
+import {Move} from './move';
+import {Board} from '../board/board';
 export class NullMove extends Move {
 
   constructor() {

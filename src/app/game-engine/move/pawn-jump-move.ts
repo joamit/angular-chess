@@ -1,7 +1,7 @@
-import {Move} from "./move";
-import {Board} from "../board/board";
-import {Piece} from "../pieces/piece";
-import {Pawn} from "../pieces/pawn";
+import {Move} from './move';
+import {Board} from '../board/board';
+import {Piece} from '../pieces/piece';
+import {Pawn} from '../pieces/pawn';
 export class PawnJumpMove extends Move {
 
   constructor(board: Board, movedPiece: Piece, destinationCoordinate: number) {
