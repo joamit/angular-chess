@@ -10,13 +10,15 @@ import {ToolBarComponent} from './tool-bar/tool-bar.component';
 import {FooterComponent} from './footer/footer.component';
 import {GameBoardComponent} from './game-board/game-board.component';
 import {GameService} from './game-service/game.service';
+import {TakenPiecesComponent} from './taken-pieces/taken-pieces.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolBarComponent,
     FooterComponent,
-    GameBoardComponent
+    GameBoardComponent,
+    TakenPiecesComponent
   ],
   imports: [
     BrowserModule,

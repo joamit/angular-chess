@@ -12,4 +12,6 @@ export class NullMove extends Move {
   execute(): Board {
     throw new Error('Null Move');
   }
+
+
 }

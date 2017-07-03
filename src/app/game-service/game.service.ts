@@ -1,6 +1,8 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Board} from '../game-engine/board/board';
 import {Alliance} from '../alliance.enum';
+import {Move} from '../game-engine/move/move';
+import {MoveLog} from '../game-engine/move/move-log';
 
 @Injectable()
 export class GameService {
@@ -10,6 +12,7 @@ export class GameService {
   allianceChanged$: EventEmitter<Alliance>;
   highLightMoves: boolean;
   highLightMovesChanged$: EventEmitter<boolean>;
+  moveLog: MoveLog;
 
   constructor() {
     this.board = this.freshBoard();
@@ -17,6 +20,7 @@ export class GameService {
     this.highLightMoves = false;
     this.allianceChanged$ = new EventEmitter();
     this.highLightMovesChanged$ = new EventEmitter();
+    this.moveLog = new MoveLog();
   }
 
   freshBoard(): Board {
@@ -32,6 +36,10 @@ export class GameService {
    */
   gameBoard(): Board {
     return this.board;
+  }
+
+  getMoveLog(): MoveLog {
+    return this.moveLog;
   }
 
   /**
@@ -54,5 +62,13 @@ export class GameService {
 
   highLightStatus(): boolean {
     return this.highLightMoves;
+  }
+
+  updateBoard(board: Board) {
+    this.board = board;
+  }
+
+  addMoveToLog(newMove: Move) {
+    this.moveLog.addMove(newMove);
   }
 }

@@ -5,11 +5,13 @@ export abstract class Move {
   board: Board;
   movedPiece: Piece;
   destinationCoordinate: number;
+  isFirstMove: boolean;
 
   constructor(board: Board, movedPiece: Piece, destinationCoordinate: number) {
     this.board = board;
     this.movedPiece = movedPiece;
     this.destinationCoordinate = destinationCoordinate;
+    this.isFirstMove = movedPiece === null ? false : movedPiece.isFirstMove();
   }
 
   /**
@@ -20,7 +22,7 @@ export abstract class Move {
     const transitionBoard: Board = new Board();
     // copy all current player's active pieces as they are to new board, except the piece which is being moved
     this.board.currentPlayer.getActivePieces().forEach((activePiece) => {
-      if (this.movedPiece.getPosition() === activePiece.getPosition()) {
+      if (this.movedPiece === activePiece) {
         console.log('This piece will be moved. Hence not adding it to the board.', activePiece);
       } else {
         transitionBoard.setPiece(activePiece);
@@ -35,6 +37,7 @@ export abstract class Move {
     // set the moved piece now
     transitionBoard.setPiece(this.movedPiece.movePiece(this));
     transitionBoard.setNextMoveMaker(this.board.currentPlayer.getOpponent().getAlliance());
+    transitionBoard.setTransitionMove(this);
 
     // initialize the board now
     transitionBoard.initializeBoard();

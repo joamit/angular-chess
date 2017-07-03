@@ -14,6 +14,9 @@ import {WhitePlayer} from '../player/white-player';
 import {BlackPlayer} from '../player/black-player';
 import {Player} from '../player/player';
 import {TileUtils} from './tile-utils';
+import {NullMove} from '../move/null-move';
+import * as _ from 'underscore';
+
 export class Board {
 
   boardConfig: BoardConfig[];
@@ -25,6 +28,7 @@ export class Board {
   blackPlayer: BlackPlayer;
   currentPlayer: Player;
   enPassantPawn: Pawn;
+  transitionMove: Move;
 
 
   /**
@@ -115,6 +119,7 @@ export class Board {
     this.blackPlayer = new BlackPlayer(this, blackStandardLegalMoves, whiteStandardLegalMoves);
 
     this.currentPlayer = this.nextMoveMaker === Alliance.WHITE ? this.whitePlayer : this.blackPlayer;
+    this.transitionMove = new NullMove();
   }
 
   /**
@@ -157,6 +162,9 @@ export class Board {
   }
 
   setPiece(piece: Piece) {
+    this.boardConfig = _.filter(this.boardConfig, (boardConfig) => {
+      return boardConfig._position !== piece.getPosition();
+    });
     this.boardConfig.push(new BoardConfig(piece.getPosition(), piece));
   }
 
@@ -176,5 +184,17 @@ export class Board {
 
   setEnPassantPawn(movedPawn: Pawn) {
     this.enPassantPawn = movedPawn;
+  }
+
+  setTransitionMove(tMove: Move) {
+    this.transitionMove = tMove;
+  }
+
+  getWhitePieces(): Piece[] {
+    return this.whitePieces;
+  }
+
+  getBlackPieces(): Piece[] {
+    return this.blackPieces;
   }
 }

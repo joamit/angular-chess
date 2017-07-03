@@ -4,9 +4,10 @@ import {Board} from '../board/board';
 import {Move} from '../move/move';
 import {BoardUtils} from '../board/board-utils';
 import {NormalMove} from '../move/normal-move';
-import {AttackMove} from '../move/attack-move';
 import {PieceType} from './piece-type.enum';
 import {TileUtils} from '../board/tile-utils';
+import {PawnJumpMove} from '../move/pawn-jump-move';
+import {PawnAttackMove} from '../move/pawn-attack-move';
 export class Pawn extends Piece {
 
   private CANDIDATE_MOVE_COORDINATES: number[] = [7, 8, 9, 16];
@@ -39,7 +40,7 @@ export class Pawn extends Piece {
           // check if both front tiles are not occupied for the jump
           const behindCandidateCoordinate = this.piecePosition + (this.pieceAlliance * 8);
           if (!board.getTile(behindCandidateCoordinate).isOccupied() && !board.getTile(candidateDestinationCoordinate).isOccupied()) {
-            legalMoves.push(new NormalMove(board, this, candidateDestinationCoordinate));
+            legalMoves.push(new PawnJumpMove(board, this, candidateDestinationCoordinate));
           }
         } else if (candidateCoordinateOffset === 7 &&
           !((BoardUtils.FIRST_COLUMN[this.piecePosition] && this.pieceAlliance === Alliance.BLACK) ||
@@ -49,7 +50,7 @@ export class Pawn extends Piece {
             const destinationPiece: Piece = board.getTile(candidateDestinationCoordinate).getPiece();
             const destinationAlliance: Alliance = destinationPiece.getAlliance();
             if (this.pieceAlliance !== destinationAlliance) {
-              legalMoves.push(new AttackMove(board, this, candidateDestinationCoordinate, destinationPiece));
+              legalMoves.push(new PawnAttackMove(board, this, candidateDestinationCoordinate, destinationPiece));
             }
           }
         } else if (candidateCoordinateOffset === 9 &&
@@ -60,7 +61,7 @@ export class Pawn extends Piece {
             const destinationPiece: Piece = board.getTile(candidateDestinationCoordinate).getPiece();
             const destinationAlliance: Alliance = destinationPiece.getAlliance();
             if (this.pieceAlliance !== destinationAlliance) {
-              legalMoves.push(new AttackMove(board, this, candidateDestinationCoordinate, destinationPiece));
+              legalMoves.push(new PawnAttackMove(board, this, candidateDestinationCoordinate, destinationPiece));
             }
           }
         }

@@ -28,6 +28,7 @@ export class PawnJumpMove extends Move {
     transitionBoard.setPiece(movedPawn);
     transitionBoard.setEnPassantPawn(movedPawn);
     transitionBoard.setNextMoveMaker(this.board.currentPlayer.getOpponent().getAlliance());
+    transitionBoard.setTransitionMove(this);
     transitionBoard.initializeBoard();
     return transitionBoard;
   }
