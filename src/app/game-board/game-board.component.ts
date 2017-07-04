@@ -129,12 +129,12 @@ export class GameBoardComponent implements OnInit {
     if (moveToMake instanceof NullMove) {
       this.openSnackBar('Illegal move. Could not find any suitable moves for this piece', '');
     } else {
-      console.log('Adding this move to move log.');
-      this.gService.addMoveToLog(moveToMake);
       console.log('Making move now');
       const moveTransition: MoveTransition = this.board.currentPlayer.makeMove(moveToMake);
       console.log('Move Transition', moveTransition);
       if (moveTransition.moveStatus === MoveStatus.Done) {
+        console.log('Adding this move to move log.');
+        this.gService.addMoveToLog(moveToMake);
         this.board = moveTransition.transitionBoard;
         this.setupTilesAsPerAlliance(this.boardDirection, this.board);
       } else {

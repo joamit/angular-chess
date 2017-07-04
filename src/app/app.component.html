@@ -1,12 +1,16 @@
-<app-tool-bar></app-tool-bar>
-<div class="container">
-  <div>
-    <div style="display: inline-block">
-      <app-game-board></app-game-board>
-    </div>
-    <div style="display: inline-block">
-      <app-taken-pieces></app-taken-pieces>
+<div layout="column">
+  <div flex>
+    <app-tool-bar></app-tool-bar>
+  </div>
+  <div flex>
+    <div layout="row" layout-align="center center">
+      <div flex>
+        <app-game-board></app-game-board>
+      </div>
     </div>
   </div>
+  <div flex>
+    <app-footer></app-footer>
+  </div>
 </div>
-<app-footer></app-footer>
+

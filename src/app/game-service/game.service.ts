@@ -13,14 +13,16 @@ export class GameService {
   highLightMoves: boolean;
   highLightMovesChanged$: EventEmitter<boolean>;
   moveLog: MoveLog;
+  moveLogUpdated$: EventEmitter<Move>;
 
   constructor() {
     this.board = this.freshBoard();
     this.activeAlliance = Alliance.WHITE;
     this.highLightMoves = false;
+    this.moveLog = new MoveLog();
     this.allianceChanged$ = new EventEmitter();
     this.highLightMovesChanged$ = new EventEmitter();
-    this.moveLog = new MoveLog();
+    this.moveLogUpdated$ = new EventEmitter();
   }
 
   freshBoard(): Board {
@@ -70,5 +72,7 @@ export class GameService {
 
   addMoveToLog(newMove: Move) {
     this.moveLog.addMove(newMove);
+    console.log('Move added to move log. ', this.moveLog);
+    this.moveLogUpdated$.emit(newMove);
   }
 }

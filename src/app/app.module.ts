@@ -5,7 +5,15 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdIconModule, MdIconRegistry, MdMenuModule, MdSnackBarModule, MdToolbarModule} from '@angular/material';
+import {
+  MdButtonModule,
+  MdGridListModule,
+  MdIconModule,
+  MdIconRegistry,
+  MdMenuModule,
+  MdSnackBarModule,
+  MdToolbarModule
+} from '@angular/material';
 import {ToolBarComponent} from './tool-bar/tool-bar.component';
 import {FooterComponent} from './footer/footer.component';
 import {GameBoardComponent} from './game-board/game-board.component';
@@ -29,7 +37,8 @@ import {TakenPiecesComponent} from './taken-pieces/taken-pieces.component';
     MdButtonModule,
     MdIconModule,
     MdSnackBarModule,
-    MdMenuModule
+    MdMenuModule,
+    MdGridListModule
   ],
   providers: [
     MdIconRegistry,

@@ -1,11 +1,18 @@
-<div class="row" *ngFor="let row of rows; let y=index">
-  <div class="column" *ngFor="let tile of row; let x=index; trackBy:x"
-       [style.background-color]="getStyling(y, x)">
-    <!--Chess Piece here-->
-    <div [@tileState]="checkTileState(tile)" (click)="onTileClick(tile)">
-      <md-icon svgIcon="{{tile.getPiece() ? tile.getPiece().getPieceType() : ''}}"
-               style="width:60px;height:60px;"></md-icon>
-    </div>
+<div class="container container-fluid">
+  <div class="container-fluid" style="display: inline;">
+    <div flex class="row" *ngFor="let row of rows; let y=index">
+      <div class="column" *ngFor="let tile of row; let x=index; trackBy:x"
+           [style.background-color]="getStyling(y, x)">
+        <!--Chess Piece here-->
+        <div [@tileState]="checkTileState(tile)" (click)="onTileClick(tile)">
+          <md-icon svgIcon="{{tile.getPiece() ? tile.getPiece().getPieceType() : ''}}"
+                   style="width:60px;height:60px;"></md-icon>
+        </div>
 
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" style="display: inline; position:absolute; margin-left: 400px;">
+    <app-taken-pieces></app-taken-pieces>
   </div>
 </div>
