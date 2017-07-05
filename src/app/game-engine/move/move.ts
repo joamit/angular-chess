@@ -67,4 +67,16 @@ export abstract class Move {
   getAttackedPiece(): Piece {
     return null;
   }
+
+  getBoard(): Board {
+    return this.board;
+  }
+
+  getMovedPiece(): Piece {
+    return this.movedPiece;
+  }
+
+  getDestinationCoordinate(): number {
+    return this.destinationCoordinate;
+  }
 }
